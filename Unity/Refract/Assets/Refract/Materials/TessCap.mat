@@ -9,8 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: TessCap
   m_Shader: {fileID: 4800000, guid: 1ffdb45434ccd7e4ab7973d630926958, type: 3}
-  m_ShaderKeywords: FT_EDGE_TESS _ALPHABLEND_ON _GLOSSYREFLECTIONS_OFF _PARALLAXMAP
-    _SPECULARHIGHLIGHTS_OFF
+  m_ShaderKeywords: FT_EDGE_TESS _ALPHABLEND_ON _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -46,7 +45,7 @@ Material:
         m_Scale: {x: 1, y: 0.9}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 8b22f6dacae4dcc48b796c370d755151, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 0.9}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
@@ -58,7 +57,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: f67f3f4590782f344b73ae4f0a55e50f, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
@@ -90,7 +89,7 @@ Material:
     - _SpecBurn: 0
     - _SpecularHighlights: 0
     - _SrcBlend: 5
-    - _Tess: 13.8
+    - _Tess: 32
     - _TessMode: 1
     - _UVSec: 0
     - _ZWrite: 0

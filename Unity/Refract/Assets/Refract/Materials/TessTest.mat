@@ -90,7 +90,7 @@ Material:
     - _SpecBurn: 0
     - _SpecularHighlights: 0
     - _SrcBlend: 5
-    - _Tess: 13.8
+    - _Tess: 15
     - _TessMode: 1
     - _UVSec: 0
     - _ZWrite: 0

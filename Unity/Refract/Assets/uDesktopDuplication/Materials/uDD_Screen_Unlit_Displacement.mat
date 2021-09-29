@@ -4,13 +4,15 @@
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_Name: uDD_Screen_Unlit_Displacement
   m_Shader: {fileID: 4800000, guid: 05df46eb51b13c84eabbdf4c53cc8db7, type: 3}
-  m_ShaderKeywords: BEND_ON _CULL_OFF _FORWARD_Z
+  m_ShaderKeywords: INVERT_Y _CULL_OFF _FORWARD_Z
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
@@ -22,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DispTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: f67f3f4590782f344b73ae4f0a55e50f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -30,9 +32,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _Bend: 1
+    - _Bend: 0
+    - _ColorScale: 1
     - _Cull: 0
-    - _DispFactor: 0.1
+    - _DispFactor: 1.9
     - _Displacement: 0.3
     - _Forward: 1
     - _InsideTessFactor: 1
@@ -42,8 +45,9 @@ Material:
     - _TessEdgeLen: 1
     - _TessFactor: 25
     - _TessMaxDist: 10
-    - _TessMinDist: 0.5
+    - _TessMinDist: 13
     - _Thickness: 1
     - _Width: 1.92
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []

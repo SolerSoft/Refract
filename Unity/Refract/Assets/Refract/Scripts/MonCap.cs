@@ -14,11 +14,11 @@ public class MonCap : MonoBehaviour
 
     #region Unity Inspector Variables
     [SerializeField]
-    [Tooltip("The material where the captured textures will be set.")]
-    private Material material;
+    [Tooltip("The mesh where displacement should be applied.")]
+    private MeshRenderer mesh;
 
     [SerializeField]
-    [Tooltip("The desktop application texture.")]
+    [Tooltip("The desktop capture object.")]
     private uDesktopDuplication.Texture uddTexture;
     #endregion // Unity Inspector Variables
 
@@ -30,35 +30,28 @@ public class MonCap : MonoBehaviour
             pixels = new Color32[w * h];
         }
 
-        // Create color texture
-        if (color == null || color.width != w || color.height != h)
-        {
-            color = new Texture2D(w, h, TextureFormat.ARGB32, false);
-        }
-
         // Create height texture
         if (height == null || height.width != w || height.height != h)
         {
             height = new Texture2D(w, h, TextureFormat.ARGB32, false);
-        }
 
-        // Update shader
-        material.SetTexture("_MainTex", color);
-        material.SetTexture("_ParallaxMap", height);
+            // Update mesh shader
+            mesh.sharedMaterial.SetTexture("_DispTex", height);
+        }
     }
 
 
-    //// Start is called before the first frame update
-    //void Start()
-    //{
-    //}
-
-    // Update is called once per frame
-    void Update()
+    // Start is called before the first frame update
+    void Start()
     {
         // must be called (performance will be slightly down).
         uDesktopDuplication.Manager.primary.useGetPixels = true;
 
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         var monitor = uddTexture.monitor;
         if (!monitor.hasBeenUpdated) return;
 
@@ -73,13 +66,6 @@ public class MonCap : MonoBehaviour
         {
             height.SetPixels32(pixels);
             height.Apply();
-        }
-
-        // Get color
-        if (monitor.GetPixels(pixels, w, 0, w, h))
-        {
-            color.SetPixels32(pixels);
-            color.Apply();
         }
     }
 }
