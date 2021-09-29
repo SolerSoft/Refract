@@ -56,12 +56,13 @@ public class MonCap : MonoBehaviour
         if (!monitor.hasBeenUpdated) return;
 
         // Get dimensions
+        // w = monitor.width;
         w = monitor.width / 2;
         h = monitor.height;
 
         CreateTexturesIfNeeded();
 
-        // Get height
+        // Get heightmap
         if (monitor.GetPixels(pixels, 0, 0, w, h))
         {
             height.SetPixels32(pixels);
