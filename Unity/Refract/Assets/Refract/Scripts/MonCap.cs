@@ -41,17 +41,18 @@ public class MonCap : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // must be called (performance will be slightly down).
-        uDesktopDuplication.Manager.primary.useGetPixels = true;
+    //// Start is called before the first frame update
+    //void Start()
+    //{
 
-    }
+    //}
 
     // Update is called once per frame
     void Update()
     {
+        // must be called (performance will be slightly down).
+        uDesktopDuplication.Manager.primary.useGetPixels = true;
+
         var monitor = uddTexture.monitor;
         if (!monitor.hasBeenUpdated) return;
 
@@ -63,7 +64,7 @@ public class MonCap : MonoBehaviour
         CreateTexturesIfNeeded();
 
         // Get heightmap
-        if (monitor.GetPixels(pixels, 0, 0, w, h))
+        if (monitor.GetPixels(pixels, w, 0, w, h))
         {
             height.SetPixels32(pixels);
             height.Apply();
