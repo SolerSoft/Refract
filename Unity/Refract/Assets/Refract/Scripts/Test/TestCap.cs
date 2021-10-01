@@ -2,28 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TestCap : MonoBehaviour
+namespace Refract
 {
-    [SerializeField]
-    [Tooltip("The material where the captured textures will be set.")]
-    private MeshRenderer mesh;
-
-    public Texture2D depth;
-    public Texture2D color;
-
-
-    // Start is called before the first frame update
-    void Start()
+    public class TestCap : MonoBehaviour
     {
-        Material material = mesh.sharedMaterial;
+        [SerializeField]
+        [Tooltip("The material where the captured textures will be set.")]
+        private MeshRenderer mesh;
 
-        material.SetTexture("_MainTex", color);
-        material.SetTexture("_ParallaxMap", depth);
+        public Texture2D depth;
+        public Texture2D color;
+
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            Material material = mesh.sharedMaterial;
+
+            material.SetTexture("_MainTex", color);
+            material.SetTexture("_ParallaxMap", depth);
+        }
+
+        //// Update is called once per frame
+        //void Update()
+        //{
+
+        //}
     }
-
-    //// Update is called once per frame
-    //void Update()
-    //{
-        
-    //}
 }
