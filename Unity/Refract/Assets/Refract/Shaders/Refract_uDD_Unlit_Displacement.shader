@@ -13,7 +13,7 @@ Properties
     [PowerSlider(10.0)] _Thickness("Thickness", Range(0.01, 10)) = 1
     [KeywordEnum(Off, Front, Back)] _Cull("Culling", Int) = 2
     _DispTex ("Displacement Map", 2D) = "black" {}
-    _DispFactor("Displacement Factor", Range(0, 20.0)) = 1
+    _DispFactor("Displacement Factor", Range(0, 20.0)) = 10.0
     _TessMinDist("Tessellation Min Distance", Range(0.1, 100.0)) = 1.0
     _TessMaxDist("Tessellation Max Distance", Range(0.1, 100.0)) = 5.0
     _TessFactor("Tessellation Factor", Range(0.1, 50.0)) = 10.0

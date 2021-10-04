@@ -285,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
       propertyPath: far clip plane
-      value: 72.05745
+      value: 87.81745
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
       propertyPath: near clip plane
@@ -301,7 +301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
       propertyPath: farClipFactor
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
       propertyPath: nearClipFactor
@@ -319,6 +319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1239773364}
   - component: {fileID: 1239773363}
+  - component: {fileID: 1239773365}
   m_Layer: 0
   m_Name: Controller
   m_TagString: Untagged
@@ -354,6 +355,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1239773365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239773362}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 313a8118abfa42b45b87d9e7af2aad27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  depthiness: 10
+  focus: 0
+  projector: {fileID: 1920960473}
 --- !u!1 &1920960470
 GameObject:
   m_ObjectHideFlags: 0
