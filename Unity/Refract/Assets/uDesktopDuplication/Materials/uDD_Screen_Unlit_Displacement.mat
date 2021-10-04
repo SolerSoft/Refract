@@ -24,7 +24,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DispTex:
-        m_Texture: {fileID: 2800000, guid: e20bd5c845f8f2c4cb250a40194eb8d7, type: 3}
+        m_Texture: {fileID: 2800000, guid: 833d976c958762d489dde3700852130c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -39,6 +39,7 @@ Material:
     - _Displacement: 0.3
     - _Forward: 1
     - _InsideTessFactor: 1
+    - _Mask: 0.1
     - _Radius: 15.4
     - _TessDistFactor: 3
     - _TessDistPower: 1.545
