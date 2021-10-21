@@ -131,7 +131,7 @@ namespace LookingGlass {
 				return;
 			}
 			if (frameRendered) return; // don't update if frame's been rendered already
-			cursorCam.CopyFrom(holoplay.cam);
+			cursorCam.CopyFrom(holoplay.SingleViewCamera);
 			var w = holoplay.quiltSettings.viewWidth;
 			var h = holoplay.quiltSettings.viewHeight;
 			var colorRT = RenderTexture.GetTemporary(

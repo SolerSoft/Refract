@@ -5,7 +5,7 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace LookingGlass{
+namespace LookingGlass.Editor {
         // Ensure class initializer is called whenever scripts recompile
     [InitializeOnLoad]
     public class EditorStateTracking

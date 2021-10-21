@@ -5,7 +5,8 @@
 using UnityEngine;
 using UnityEditor;
 
-namespace LookingGlass {
+namespace LookingGlass.Editor {
+	//TODO: Is this really only an editor-only asset?
 	public class ManualPreviewSettings : ScriptableObject {
 		public bool manualPosition = true;
 		public Vector2Int position = new Vector2Int(0, 0);
@@ -14,7 +15,7 @@ namespace LookingGlass {
 	}
 
 	[CustomEditor(typeof(ManualPreviewSettings))]
-	public class ManualPreviewSettingsEditor : Editor {
+	public class ManualPreviewSettingsEditor : UnityEditor.Editor {
 
 		public override void OnInspectorGUI() {
 			DrawDefaultInspector();

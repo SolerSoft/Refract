@@ -74,8 +74,8 @@ namespace LookingGlass {
 
 			Shader.SetGlobalVector("ProjParams", new Vector4(
 				1f, 
-				holoplay.cam.nearClipPlane, 
-				holoplay.cam.farClipPlane, 
+				holoplay.SingleViewCamera.nearClipPlane, 
+				holoplay.SingleViewCamera.farClipPlane, 
 				1f
 			));
 

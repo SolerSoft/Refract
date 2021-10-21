@@ -34,7 +34,7 @@ namespace LookingGlass {
 			// update warning
 			int i;
 			showUpdateWarning = false;
-			for (i = 0; i < CalibrationManager.GetCalibrationCount(); i++) {
+			for (i = 0; i < CalibrationManager.CalibrationCount; i++) {
 				if (CalibrationManager.GetCalibration(i).LKGname == "LKG") {
 					showUpdateWarning = true;
 				}
@@ -118,7 +118,7 @@ namespace LookingGlass {
 			}
 			// first sort displays
 			List<DisplayPositioner> targetDisplayPositions = new List<DisplayPositioner>();
-            for (int lkg = 0; lkg < CalibrationManager.GetCalibrationCount(); lkg++) {
+            for (int lkg = 0; lkg < CalibrationManager.CalibrationCount; lkg++) {
                 targetDisplayPositions.Add(new DisplayPositioner () {
 					targetLKG = lkg,
 					targetDisplay = PluginCore.GetLKGunityIndex(lkg),

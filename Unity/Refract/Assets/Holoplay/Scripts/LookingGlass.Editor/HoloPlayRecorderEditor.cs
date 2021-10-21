@@ -4,13 +4,10 @@
 
 using UnityEngine;
 using UnityEditor;
-using System;
 
-
-namespace LookingGlass {
-    
+namespace LookingGlass.Editor {
     [CustomEditor(typeof(HoloplayRecorder))]
-	public class HoloplayRecorderEditor : Editor {
+	public class HoloplayRecorderEditor : UnityEditor.Editor {
 		SerializedProperty presetProp;
         	HoloplayDevice.Type quiltSettingsPreset = HoloplayDevice.Type.Portrait;
 
@@ -18,7 +15,6 @@ namespace LookingGlass {
         {
             presetProp = serializedObject.FindProperty("_preset");
         }
-        
 
         public override void OnInspectorGUI()
         {

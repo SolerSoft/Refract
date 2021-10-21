@@ -230,7 +230,7 @@ namespace LookingGlass
             {
                 previousPreset = holoplay.GetQuiltPreset();
                 previousCustom = holoplay.customQuiltSettings;
-                previousPreviewSettings = holoplay.preview2D;
+                previousPreviewSettings = holoplay.Preview2D;
                 previousAspect = holoplay.cal.aspect;
                 previousNearflip = holoplay.nearClipFactor;
             }
@@ -239,7 +239,7 @@ namespace LookingGlass
             holoplay.SetQuiltPreset(Quilt.Preset.Custom);
             holoplay.customQuiltSettings = quiltSettings;
             holoplay.customQuiltSettings.Setup();
-			holoplay.preview2D = false;
+			holoplay.Preview2D = false;
             holoplay.SetupQuilt();
             holoplay.cal.aspect = quiltSettings.aspect;
             holoplay.nearClipFactor = overwriteNearClipFactor;
@@ -254,7 +254,7 @@ namespace LookingGlass
                 Debug.LogWarning("[Holoplay] Failed to restore quilt settings because no Holoplay Capture instance exists"); 
                 return;
             }
-            holoplay.preview2D = previousPreviewSettings;
+            holoplay.Preview2D = previousPreviewSettings;
             holoplay.customQuiltSettings = previousCustom;
             holoplay.SetQuiltPreset(previousPreset);
             holoplay.cal.aspect = previousAspect;

@@ -1,26 +1,24 @@
 ﻿// Dual Monitor Application is only supported on 2018 or later
-// This is an editor script
 #if UNITY_2018_4_OR_NEWER || UNITY_2019_1_OR_NEWER
 
 // imported packages below
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.SceneManagement;
+using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEditor.Build.Reporting;
-using System.IO;
-using System.Diagnostics;
+using LookingGlass.DualMonitorApplication;
+
 using Debug = UnityEngine.Debug;
 
-
-namespace LookingGlass.DualMonitorApplication {
-
+namespace LookingGlass.Editor.DualMonitorApplication {
     [HelpURL("https://look.glass/unitydocs")]
-
-	[CustomEditor(typeof(DualMonitorApplicationManager))]
-	public class DualMonitorApplicationManagerEditor : Editor {
+    [CustomEditor(typeof(DualMonitorApplicationManager))]
+    public class DualMonitorApplicationManagerEditor : UnityEditor.Editor {
 
         const string proBuildDirPrefsName = "_PROBUILDDIR";
         string separator = DualMonitorApplicationManager.separator;

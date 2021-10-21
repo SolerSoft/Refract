@@ -1,17 +1,29 @@
-﻿//Copyright 2017-2021 Looking Glass Factory Inc.
+//Copyright 2017-2021 Looking Glass Factory Inc.
 //All rights reserved.
 //Unauthorized copying or distribution of this file, and the source code contained herein, is strictly prohibited.
 
 #define TX 1
 #define TY 8 
 #define TZ 8
-#pragma kernel QuiltInterpolationForward DIR=1.0
-#pragma kernel QuiltInterpolationBack DIR=-1.0
-#pragma kernel QuiltInterpolationBackBlend DIR=-1.0 BLEND_VIEWS
-#pragma kernel QuiltInterpolationForwardFlicker DIR=1.0
-#pragma kernel QuiltInterpolationBackFlicker DIR=-1.0
-#pragma kernel QuiltInterpolationBackBlendFlicker DIR=-1.0 BLEND_VIEWS
-#pragma kernel FillGaps DIR=1.0
+
+//#UNITY_2020_1_OR_NEWER
+#pragma kernel QuiltInterpolationForward DIR 1.0
+#pragma kernel QuiltInterpolationBack DIR -1.0
+#pragma kernel QuiltInterpolationBackBlend DIR -1.0 BLEND_VIEWS
+#pragma kernel QuiltInterpolationForwardFlicker DIR 1.0
+#pragma kernel QuiltInterpolationBackFlicker DIR -1.0
+#pragma kernel QuiltInterpolationBackBlendFlicker DIR -1.0 BLEND_VIEWS
+#pragma kernel FillGaps DIR 1.0
+
+//#!UNITY_2020_1_OR_NEWER
+//#pragma kernel QuiltInterpolationForward DIR=1.0
+//#pragma kernel QuiltInterpolationBack DIR=-1.0
+//#pragma kernel QuiltInterpolationBackBlend DIR=-1.0 BLEND_VIEWS
+//#pragma kernel QuiltInterpolationForwardFlicker DIR=1.0
+//#pragma kernel QuiltInterpolationBackFlicker DIR=-1.0
+//#pragma kernel QuiltInterpolationBackBlendFlicker DIR=-1.0 BLEND_VIEWS
+//#pragma kernel FillGaps DIR=1.0
+
 
 shared RWTexture2D<float4> Result;
 shared RWTexture2D<float> ResultDepth;
@@ -35,10 +47,9 @@ int xsize;
 int px;
 int spanSize;
 
-float LinearEyeDepth( float rawdepth )
-{
+float LinearEyeDepth(float rawdepth) {
     float x, y, z, w;
-#if SHADER_API_GLES3 // insted of UNITY_REVERSED_Z
+#if SHADER_API_GLES3 // instead of UNITY_REVERSED_Z
     x = -1.0 + _NearClip/ _FarClip;
     y = 1;
     z = x / _NearClip;

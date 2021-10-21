@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-namespace LookingGlass {
+namespace LookingGlass.Editor {
     [InitializeOnLoad]
     public class HoloplayPlayerSettings : EditorWindow {
 
@@ -74,7 +74,7 @@ namespace LookingGlass {
             var currentWindows = Resources.FindObjectsOfTypeAll(Preview.gameViewWindowType);
             foreach (EditorWindow w in currentWindows) {                
                 // change game view resolution if emulated device prop get changed
-                Preview.SetResolution(w, defaultSettings.screenWidth,defaultSettings.screenHeight, defaultSettings.name);
+                Preview.SetGameViewResolution(w, defaultSettings.screenWidth,defaultSettings.screenHeight, defaultSettings.name);
             }
         }
 

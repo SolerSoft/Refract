@@ -115,7 +115,7 @@ namespace LookingGlass
             if (preset != Preset.Automatic) return presets[(int)preset];
             
             // making an exception here for portrait
-            if (cal.isPortrait())
+            if (cal.IsPortrait)
             {
                 return presets[(int)Preset.Portrait];
             }
