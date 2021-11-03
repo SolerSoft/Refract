@@ -82,6 +82,14 @@ namespace Refract
             // Move the projector
             projector.transform.position = pos;
         }
+
+        /// <summary>
+        /// Scales the height of the projector to maintain the proper aspect ratio of the screen.
+        /// </summary>
+        private void ApplyScale()
+        {
+
+        }
         #endregion // Internal Methods
 
         #region Unity Overrides
@@ -97,6 +105,9 @@ namespace Refract
                 enabled = false;
                 return;
             }
+
+            // Turn off V-Sync
+            Application.targetFrameRate = -1;
 
             // Get the projector material
             projectorMaterial = projector.sharedMaterial;

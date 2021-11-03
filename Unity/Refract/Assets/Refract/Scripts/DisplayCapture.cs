@@ -7,11 +7,11 @@ namespace Refract
     public class DisplayCapture : MonoBehaviour
     {
         #region Member Variables
-        private Texture2D color;
-        private Texture2D height;
+        private Texture2D colorMap;
+        private Texture2D heightMap;
         private Color32[] pixels;
-        private int w;
-        private int h;
+        private int width;
+        private int height;
         #endregion // Member Variables
 
         #region Unity Inspector Variables
@@ -24,23 +24,39 @@ namespace Refract
         private uDesktopDuplication.Texture uddSource;
         #endregion // Unity Inspector Variables
 
+        /// <summary>
+        /// If the resolution has changed, recreate textures.
+        /// </summary>
         private void CreateTexturesIfNeeded()
         {
             // Create pixel array
-            if (pixels == null || pixels.Length != w * h)
+            if (pixels == null || pixels.Length != width * height)
             {
-                pixels = new Color32[w * h];
+                pixels = new Color32[width * height];
             }
 
             // Create height texture
-            if (height == null || height.width != w || height.height != h)
+            if (heightMap == null || heightMap.width != width || heightMap.height != height)
             {
-                height = new Texture2D(w, h, TextureFormat.ARGB32, false);
+                // Create the hight map
+                heightMap = new Texture2D(width, height, TextureFormat.ARGB32, false);
 
                 // Update mesh shader
-                projector.sharedMaterial.SetTexture("_DispTex", height);
+                projector.sharedMaterial.SetTexture("_DispTex", heightMap);
+
+                // Scale the mesh to match the aspect ratio of the new texture
+                projector.gameObject.transform.localScale = new Vector3(1, 1, (float)height / (float)width);
             }
         }
+
+        /// <summary>
+        /// Scales the height of the projector to maintain the proper aspect ratio of the screen.
+        /// </summary>
+        private void UpdateScale()
+        {
+
+        }
+
 
 
         //// Start is called before the first frame update
@@ -55,21 +71,24 @@ namespace Refract
             // must be called (performance will be slightly down).
             uDesktopDuplication.Manager.primary.useGetPixels = true;
 
+            // Get the monitor
             var monitor = uddSource.monitor;
-            if (!monitor.hasBeenUpdated) return;
 
-            // Get dimensions
-            // w = monitor.width;
-            w = monitor.width / 2;
-            h = monitor.height;
+            // If no updates since last frame, skip the rest of processing
+            if (!monitor.hasBeenUpdated) { return; }
 
+            // Get current dimensions of monitor
+            width = monitor.width / 2;
+            height = monitor.height;
+
+            // Create or recreate textures as needed
             CreateTexturesIfNeeded();
 
-            // Get heightmap
-            if (monitor.GetPixels(pixels, w, 0, w, h))
+            // Get height map
+            if (monitor.GetPixels(pixels, width, 0, width, height))
             {
-                height.SetPixels32(pixels);
-                height.Apply();
+                heightMap.SetPixels32(pixels);
+                heightMap.Apply();
             }
         }
     }
