@@ -37,6 +37,7 @@ SpatialAlignment-Unity/Assets/TextMesh Pro/
 SpatialAlignment-Unity/Assets/SpatialAlignment.Examples/Common/Models/Building.meta
 SpatialAlignment-Unity/Assets/SpatialAlignment.Examples/Common/Models/Building*
 
+# Google ARCore
 GoogleARCore/
 GoogleARCore.meta
 
@@ -53,8 +54,23 @@ Lib/*.suo
 *.sln
 .vsconfig
 
-# NuGet Files
-project.lock.json
+# NuGet Package Files
+*.nupkg
+
+# NuGet Lock Files
+**/project.lock.json
+
+# NuGet Packages folder is covered by Package Restore
+**/Packages/*
+
+# But NuGet Build is not because it's an MSBuild target
+!**/Packages/build/
+
+# VSIX Packages are OK
+!**/VisualStudio/VSFeatureEngine/Packages/*
+
+# Unity Package Manager Manifest is also OK
+!**/Packages/manifest.json
 
 # Built application files
 /*/build/
@@ -247,19 +263,6 @@ publish/
 # but database connection strings (with potential passwords) will be unencrypted
 *.pubxml
 *.publishproj
-
-# NuGet Packages
-*.nupkg
-# The packages folder can be ignored because of Package Restore
-**/packages/*
-# except build/, which is used as an MSBuild target.
-!**/packages/build/
-# Uncomment if necessary however generally it will be regenerated when needed
-#!**/packages/repositories.config
-# VSIX Packages OK
-!**/VisualStudio/VSFeatureEngine/Packages/*
-# Lock files
-**/project.lock.json
 
 # Windows Azure Build Output
 csx/
