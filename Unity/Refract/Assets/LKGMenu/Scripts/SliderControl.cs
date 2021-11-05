@@ -6,9 +6,9 @@ using UnityEngine;
 namespace LKGMenu
 {
     /// <summary>
-    /// Allows a MRTK <see cref="PinchSlider"/> to function as a <see cref="CaptiveInput"/>.
+    /// Allows a MRTK <see cref="PinchSlider"/> to function as a <see cref="UIControl"/>.
     /// </summary>
-    public class SliderCaptiveInput : CaptiveInput
+    public class SliderControl : UIControl
     {
         #region Unity Inspector Variables
         [SerializeField]
@@ -21,6 +21,7 @@ namespace LKGMenu
         private PinchSlider slider;
         #endregion // Unity Inspector Variables
 
+        /// <inheritdoc/>
         protected override void OnNext()
         {
             float newVal = Mathf.Clamp(slider.SliderValue + changeAmount, 0, 1);
@@ -28,6 +29,7 @@ namespace LKGMenu
             base.OnNext();
         }
 
+        /// <inheritdoc/>
         protected override void OnPrevious()
         {
             float newVal = Mathf.Clamp(slider.SliderValue - changeAmount, 0, 1);
