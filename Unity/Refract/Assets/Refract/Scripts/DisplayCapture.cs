@@ -74,6 +74,9 @@ namespace Refract
             // Get the monitor
             var monitor = uddSource.monitor;
 
+            // If there's no monitor the projector is probably hidden, skip the rest of processing
+            if (monitor == null) { return; }
+
             // If no updates since last frame, skip the rest of processing
             if (!monitor.hasBeenUpdated) { return; }
 

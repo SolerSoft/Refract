@@ -35,7 +35,7 @@ Material:
     - _Bend: 0
     - _ColorScale: 1
     - _Cull: 0
-    - _DispFactor: 10
+    - _DispFactor: 6
     - _Displacement: 0.3
     - _Forward: 1
     - _InsideTessFactor: 1
