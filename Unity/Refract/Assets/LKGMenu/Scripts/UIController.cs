@@ -24,11 +24,11 @@ namespace LKGMenu
 
         [SerializeField]
         [Tooltip("The Looking Glass button that will perform the 'Next' command.")]
-        private HardwareButton nextButton = HardwareButton.Right;
+        private HardwareButton nextButton = HardwareButton.Forward;
 
         [SerializeField]
         [Tooltip("The Looking Glass button that will perform the 'Previous' command.")]
-        private HardwareButton previousButton = HardwareButton.Left;
+        private HardwareButton previousButton = HardwareButton.Back;
 
 
         [Header("UI")]
@@ -90,11 +90,11 @@ namespace LKGMenu
             {
                 Next();
             }
-            else if (UnityEngine.Input.GetKeyDown(previousKey) || ButtonManager.GetButtonDown(previousButton))
+            else if (InputManager.GetButtonDown(previousButton))
             {
                 Previous();
             }
-            else if (UnityEngine.Input.GetKeyDown(activateKey) || (ButtonManager.GetButtonDown(activateButton)))
+            else if (InputManager.GetButtonDown(activateButton))
             {
                 Activate();
             }

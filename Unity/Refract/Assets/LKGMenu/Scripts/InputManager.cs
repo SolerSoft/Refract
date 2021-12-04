@@ -5,48 +5,6 @@ using UnityEngine;
 
 namespace LookingGlass
 {
-    /*
-    public enum PortraitButtonType
-    {
-        None = -1,
-        Previous = 0,
-        Next = 1,
-        Pause = 2
-    }
-
-    public class PortraitButtons
-    {
-        #region Constants
-        static private readonly int VK_MEDIA_NEXT_TRACK = 0xB0;
-        static private readonly int VK_MEDIA_PREV_TRACK = 0xB1;
-        static private readonly int VK_MEDIA_PLAY_PAUSE = 0xB3;
-
-        #endregion // Constants
-        [DllImport("User32.dll")]
-        static private extern short GetAsyncKeyState(int vKey);
-
-
-        static public PortraitButtonType GetPressedButton()
-        {
-            PortraitButtonType pressed = PortraitButtonType.None;
-
-            byte[] result = System.BitConverter.GetBytes(GetAsyncKeyState(VK_MEDIA_NEXT_TRACK));
-            if (result[0] == 1) return PortraitButtonType.Next;
-
-            result = System.BitConverter.GetBytes(GetAsyncKeyState(VK_MEDIA_PREV_TRACK));
-            if (result[0] == 1) return PortraitButtonType.Previous;
-
-            result = System.BitConverter.GetBytes(GetAsyncKeyState(VK_MEDIA_PLAY_PAUSE));
-            if (result[0] == 1) return PortraitButtonType.Pause;
-
-            //if (result[1] == 0x80)
-            //    Debug.Log("The key is down");
-
-            return pressed;
-        }
-    }
-    */
-
     /// <summary>
     /// Represents the hardware buttons present on all generations of Looking Glass displays.
     /// </summary>
@@ -168,105 +126,42 @@ namespace LookingGlass
 
 
 
-        #region Static Version of InputManager
-
         #region Constants
         private const string CLASSIC_JOY_KEY = "holoplay";
         private const float JOY_CHECK_INTERVAL = 3.0f;
-        private const string SINGLETON_NAME = "HoloPlay Input Manager";
         #endregion // Constants
 
         #region Member Variables
-        static private InputManager instance;
+        static private Dictionary<HardwareButton, KeyMap> buttonKeyMap;
+        static private int classicJoyNumber = -2;
+        static private InputEmulationMode emulationMode = InputEmulationMode.Always;
+        static private bool searchForClassic = true;
+        static private float timeSinceClassicCheck = -3f;
         #endregion // Member Variables
+
+        #region Constructors
+        /// <summary>
+        /// Initializes the <see cref="InputManager"/> singleton.
+        /// </summary>
+        static InputManager()
+        {
+            AddDefaultBindings();
+            UpdateEmulationBindings();
+        }
+        #endregion // Constructors
 
         #region Internal Methods
         /// <summary>
-        /// Gets the <see cref="KeyCode"/> that represents the specified joystick and button.
+        /// Adds the default key bindings.
         /// </summary>
-        /// <param name="joystick">
-        /// The number of the joystick.
-        /// </param>
-        /// <param name="button">
-        /// The number of the button.
-        /// </param>
-        /// <returns>
-        /// The <see cref="KeyCode"/> that represents the joystick and button.
-        /// </returns>
-        static private KeyCode JoyButtonCode(int joystick, int button)
+        static private void AddDefaultBindings()
         {
-            // Validate
-            if ((joystick < 1) || (joystick > 8)) { throw new ArgumentOutOfRangeException(nameof(joystick)); }
-            if ((button < 0) || (button > 19)) { throw new ArgumentOutOfRangeException(nameof(button)); }
-
-            // Convert
-            return (KeyCode)Enum.Parse(
-                       typeof(KeyCode), "Joystick" + joystick + "Button" + button
-                   );
+            // Add KeyMap entries that map the media keys to Portrait buttons
+            GetKeyMap(HardwareButton.Forward).ExtendedKeys.Add(ExtendedKeyCode.MediaNext);
+            GetKeyMap(HardwareButton.Back).ExtendedKeys.Add(ExtendedKeyCode.MediaPrevious);
+            GetKeyMap(HardwareButton.PlayPause).ExtendedKeys.Add(ExtendedKeyCode.MediaPlayPause);
         }
-        #endregion // Internal Methods
 
-        #region Public Properties
-        /// <summary>
-        /// Gets the singleton instance of the <see cref="InputManager"/>.
-        /// </summary>
-        /// <remarks>
-        /// Reading this property will add an <see cref="InputManager"/> to the scene if one does not already exist.
-        /// </remarks>
-        static public InputManager Instance
-        {
-            get
-            {
-                // If an instance has already been cached, return it
-                if (instance != null)
-                {
-                    return instance;
-                }
-
-                // Not cached, search for it
-                instance = FindObjectOfType<InputManager>();
-
-                // If found, return it
-                if (instance != null)
-                {
-                    return instance;
-                }
-
-                // If still not found, create a GameObject to hold it
-                GameObject inputManagerGO = new GameObject(SINGLETON_NAME);
-
-                // Create the instance and cache the reference
-                instance = inputManagerGO.AddComponent<InputManager>();
-
-                // Return the cached instance
-                return instance;
-            }
-        }
-        #endregion // Public Properties
-
-        #endregion // Static Version  of InputManager
-
-
-
-        #region Instance Version of InputManager
-
-        #region Member Variables
-        private int classicJoyNumber = -2;
-        private float timeSinceClassicCheck = -3f;
-        private Dictionary<HardwareButton, KeyMap> buttonKeyMap;
-        #endregion // Member Variables
-
-        #region Unity Inspector Variables
-        [Header("Emulation")]
-        [Tooltip("When to emulate hardware buttons.")]
-        private InputEmulationMode emulationMode = InputEmulationMode.Always;
-
-        [Header("Classic")]
-        [Tooltip("Whether to search for classic hardware which appears as a Joystick device.")]
-        private bool searchForClassic = true;
-        #endregion // Unity Inspector Variables
-
-        #region Internal Methods
         /// <summary>
         /// Check to see if the specified button matches the specified state.
         /// </summary>
@@ -279,12 +174,12 @@ namespace LookingGlass
         /// <returns>
         /// <c>true</c> if the button matches the specified state; otherwise <c>false</c>.
         /// </returns>
-        private bool CheckButtonState(HardwareButton button, ButtonState state)
+        static private bool CheckButtonState(HardwareButton button, ButtonState state)
         {
             // If we haven't found a classic joystick yet and we're searching for one, try to search again now
             if ((searchForClassic) && (classicJoyNumber < 1))
             {
-                SearchForClassic();
+                DoClassicSearch();
             }
 
             // Which functions are we using to test keys and extended keys?
@@ -328,6 +223,50 @@ namespace LookingGlass
         }
 
         /// <summary>
+        /// Searches for a joystick representing a classic hardware display.
+        /// </summary>
+        static private void DoClassicSearch()
+        {
+            // If already found, ignore
+            if (classicJoyNumber > 0) { return; }
+
+            // If too little time has passed since last check, ignore
+            if ((Time.unscaledTime - timeSinceClassicCheck) < JOY_CHECK_INTERVAL) { return; }
+
+            // Checking now
+            timeSinceClassicCheck = Time.unscaledTime;
+
+            // Get all joystick names
+            string[] joyNames = Input.GetJoystickNames();
+
+            // Look at each name
+            for (int i = 0; i < joyNames.Length; i++)
+            {
+                if (joyNames[i].ToLower().Contains(CLASSIC_JOY_KEY))
+                {
+                    classicJoyNumber = i + 1; // Unity joystick IDs are 1 bound not 0 bound
+                    break;
+                }
+            }
+
+            // Warn if not found, but only once
+            if (classicJoyNumber == -2)
+            {
+                Debug.LogWarning($"{nameof(InputManager)} - No HoloPlay joystick found but will continue to search.");
+                classicJoyNumber = -1;
+            }
+
+            // If the joystick has been found, add KeyMap entries that map the joystick buttons to classic hardware buttons
+            if (classicJoyNumber > 0)
+            {
+                GetKeyMap(HardwareButton.Square).Keys.Add(JoyButtonToCode(classicJoyNumber, 1));
+                GetKeyMap(HardwareButton.Left).Keys.Add(JoyButtonToCode(classicJoyNumber, 2));
+                GetKeyMap(HardwareButton.Right).Keys.Add(JoyButtonToCode(classicJoyNumber, 3));
+                GetKeyMap(HardwareButton.Circle).Keys.Add(JoyButtonToCode(classicJoyNumber, 4));
+            }
+        }
+
+        /// <summary>
         /// Gets the <see cref="KeyMap"/> for the specified button, creating it if necessary.
         /// </summary>
         /// <param name="button">
@@ -336,7 +275,7 @@ namespace LookingGlass
         /// <returns>
         /// The <see cref="KeyMap"/> for the button.
         /// </returns>
-        private KeyMap GetKeyMap(HardwareButton button)
+        static private KeyMap GetKeyMap(HardwareButton button)
         {
             // Make sure the overall lookup table is crated
             if (buttonKeyMap == null)
@@ -360,74 +299,32 @@ namespace LookingGlass
         }
 
         /// <summary>
-        /// Searches for a joystick representing a classic hardware display.
+        /// Gets the <see cref="KeyCode"/> that represents the specified joystick and button.
         /// </summary>
-        private void SearchForClassic()
+        /// <param name="joystick">
+        /// The number of the joystick.
+        /// </param>
+        /// <param name="button">
+        /// The number of the button.
+        /// </param>
+        /// <returns>
+        /// The <see cref="KeyCode"/> that represents the joystick and button.
+        /// </returns>
+        static private KeyCode JoyButtonToCode(int joystick, int button)
         {
-            // If already found, ignore
-            if (classicJoyNumber > 0) { return; }
+            // Validate
+            if ((joystick < 1) || (joystick > 8)) { throw new ArgumentOutOfRangeException(nameof(joystick)); }
+            if ((button < 0) || (button > 19)) { throw new ArgumentOutOfRangeException(nameof(button)); }
 
-            // If too little time has passed since last check, ignore
-            if ((Time.unscaledTime - timeSinceClassicCheck) < JOY_CHECK_INTERVAL) { return; }
-
-            // Checking now
-            timeSinceClassicCheck = Time.unscaledTime;
-
-            // Get all joystick names
-            string[] joyNames = Input.GetJoystickNames();
-
-            // Look at each name
-            for (int i=0; i < joyNames.Length; i++)
-            {
-                if (joyNames[i].ToLower().Contains(CLASSIC_JOY_KEY))
-                {
-                    classicJoyNumber = i + 1; // Unity joystick IDs are 1 bound not 0 bound
-                    break;
-                }
-            }
-
-            // Warn if not found, but only once
-            if (classicJoyNumber == -2)
-            {
-                Debug.LogWarning($"{nameof(InputManager)} - No HoloPlay joystick found but will continue to search.");
-                classicJoyNumber = -1;
-            }
-
-            // If the joystick has been found, add KeyMap entries that map the joystick buttons to classic hardware buttons
-            if (classicJoyNumber > 0)
-            {
-                GetKeyMap(HardwareButton.Square).Keys.Add(JoyButtonCode(classicJoyNumber, 1));
-                GetKeyMap(HardwareButton.Left).Keys.Add(JoyButtonCode(classicJoyNumber, 2));
-                GetKeyMap(HardwareButton.Right).Keys.Add(JoyButtonCode(classicJoyNumber, 3));
-                GetKeyMap(HardwareButton.Circle).Keys.Add(JoyButtonCode(classicJoyNumber, 4));
-            }
-        }
-        #endregion // Internal Methods
-
-        #region Unity Overrides
-        /// <inheritdoc/>
-        protected virtual void OnEnable()
-        {
-            // Make sure more than one instance doesn't start up
-            if ((instance != null) && (instance != this))
-            {
-                Debug.LogError($"More than one instance of {nameof(InputManager)} detected in the scene. Terminating '{name}'.");
-                Destroy(this);
-                return;
-            }
-
-            // Make sure we don't get destroyed across scene changes
-            DontDestroyOnLoad(this);
+            // Convert
+            return (KeyCode)Enum.Parse(typeof(KeyCode), "Joystick" + joystick + "Button" + button);
         }
 
-        /// <inheritdoc/>
-        protected virtual void Start()
+        /// <summary>
+        /// Updates emulation based on the state of <see cref="EmulationMode"/> and the current app.
+        /// </summary>
+        static private void UpdateEmulationBindings()
         {
-            // Add KeyMap entries that map the media keys to Portrait buttons
-            GetKeyMap(HardwareButton.Forward).ExtendedKeys.Add(ExtendedKeyCode.MediaNext);
-            GetKeyMap(HardwareButton.Back).ExtendedKeys.Add(ExtendedKeyCode.MediaPrevious);
-            GetKeyMap(HardwareButton.PlayPause).ExtendedKeys.Add(ExtendedKeyCode.MediaPlayPause);
-
             // If emulation is enabled, add emulation key map entries as well
             if ((emulationMode == InputEmulationMode.Always) || (emulationMode == InputEmulationMode.EditorOnly && Application.isEditor))
             {
@@ -436,8 +333,16 @@ namespace LookingGlass
                 GetKeyMap(HardwareButton.Right).Keys.Add(KeyCode.Alpha3);
                 GetKeyMap(HardwareButton.Circle).Keys.Add(KeyCode.Alpha4);
             }
+            else
+            {
+                // Remove won't throw an exception if not found
+                GetKeyMap(HardwareButton.Square).Keys.Remove(KeyCode.Alpha1);
+                GetKeyMap(HardwareButton.Left).Keys.Remove(KeyCode.Alpha2);
+                GetKeyMap(HardwareButton.Right).Keys.Remove(KeyCode.Alpha3);
+                GetKeyMap(HardwareButton.Circle).Keys.Remove(KeyCode.Alpha4);
+            }
         }
-        #endregion // Unity Overrides
+        #endregion // Internal Methods
 
         #region Public Methods
         /// <summary>
@@ -446,7 +351,7 @@ namespace LookingGlass
         /// <returns>
         /// <c>true</c> if any button is held; otherwise <c>false</c>.
         /// </returns>
-        public bool GetAnyButton()
+        static public bool GetAnyButton()
         {
             // Get all buttons
             var allButtons = Enum.GetValues(typeof(HardwareButton));
@@ -467,7 +372,7 @@ namespace LookingGlass
         /// <returns>
         /// <c>true</c> if any button was pressed on this frame; otherwise <c>false</c>.
         /// </returns>
-        public bool GetAnyButtonDown()
+        static public bool GetAnyButtonDown()
         {
             // Get all buttons
             var allButtons = Enum.GetValues(typeof(HardwareButton));
@@ -491,7 +396,7 @@ namespace LookingGlass
         /// <returns>
         /// <c>true</c> if the specified button is held down; otherwise <c>false</c>.
         /// </returns>
-        public bool GetButton(HardwareButton button)
+        static public bool GetButton(HardwareButton button)
         {
             return CheckButtonState(button, ButtonState.Held);
         }
@@ -503,7 +408,7 @@ namespace LookingGlass
         /// <returns>
         /// <c>true</c> if the specified button was pressed on this frame; otherwise <c>false</c>.
         /// </returns>
-        public bool GetButtonDown(HardwareButton button)
+        static public bool GetButtonDown(HardwareButton button)
         {
             return CheckButtonState(button, ButtonState.Down);
         }
@@ -515,12 +420,40 @@ namespace LookingGlass
         /// <returns>
         /// <c>true</c> if the specified button was released on this frame; otherwise <c>false</c>.
         /// </returns>
-        public bool GetButtonUp(HardwareButton button)
+        static public bool GetButtonUp(HardwareButton button)
         {
             return CheckButtonState(button, ButtonState.Up);
         }
         #endregion // Public Methods
 
-        #endregion // Instance Version of InputManager
+        #region Public Properties
+        /// <summary>
+        /// Gets or sets a value that indicates when to emulate hardware buttons.
+        /// </summary>
+        static public InputEmulationMode EmulationMode
+        {
+            get
+            {
+                return emulationMode;
+            }
+            set
+            {
+                // Make sure changing
+                if (value == emulationMode) { return; }
+
+                // Update emulation
+                UpdateEmulationBindings();
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets a value that indicates whether to search for classic hardware.
+        /// </summary>
+        /// <remarks>
+        /// Classic hardware appears as a Joystick device. If this property is <c>true</c> (default) the manager will
+        /// search for the proper joystick after every 3 seconds until one is found.
+        /// </remarks>
+        static public bool SearchForClassic { get => searchForClassic; set => searchForClassic = value; }
+        #endregion // Public Properties
     }
 }

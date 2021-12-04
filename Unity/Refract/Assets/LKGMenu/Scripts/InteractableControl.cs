@@ -17,15 +17,17 @@ namespace LKGMenu
         #endregion // Unity Inspector Variables
 
         #region Unity Overrides
-        /// <summary>
-        /// Start is called before the first frame update
-        /// </summary>
-        protected virtual void Start()
+        /// <inheritdoc/>
+        protected virtual void Awake()
         {
             // If there is no control specified, look for one on the same GameObject
             if (interactable == null)
             {
                 interactable = GetComponent<Interactable>();
+                if (interactable != null)
+                {
+                    interactable.HasFocus = this.HasFocus;
+                }
             }
         }
         #endregion // Unity Overrides
@@ -35,7 +37,10 @@ namespace LKGMenu
         protected override UIControl OnActivate()
         {
             // Activate the interactable
-            interactable.TriggerOnClick();
+            if (interactable != null)
+            {
+                interactable.TriggerOnClick();
+            }
 
             // Pass on to base
             return base.OnActivate();
@@ -48,7 +53,10 @@ namespace LKGMenu
             base.OnGotFocus();
 
             // Notify interactable that it has received focus
-            interactable.HasFocus = true;
+            if (interactable != null)
+            {
+                interactable.HasFocus = true;
+            }
         }
 
         /// <inheritdoc/>
@@ -58,7 +66,10 @@ namespace LKGMenu
             base.OnLostFocus();
 
             // Notify interactable that focus has been lost
-            interactable.HasFocus = false;
+            if (interactable != null)
+            {
+                interactable.HasFocus = false;
+            }
         }
         #endregion // Overrides / Event Handlers
     }
