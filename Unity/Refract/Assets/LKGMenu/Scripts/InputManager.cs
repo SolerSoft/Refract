@@ -1,51 +1,51 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
 
 namespace LookingGlass
 {
-
+    /*
     public enum PortraitButtonType
-{
-    None = -1,
-    Previous = 0, 
-    Next = 1, 
-    Pause = 2
-}
-
-public class PortraitButtons
-{
-    #region Constants
-    static private readonly int VK_MEDIA_NEXT_TRACK = 0xB0;
-    static private readonly int VK_MEDIA_PREV_TRACK = 0xB1;
-    static private readonly int VK_MEDIA_PLAY_PAUSE = 0xB3;
-
-    #endregion // Constants
-    [DllImport("User32.dll")]
-    static private extern short GetAsyncKeyState(int vKey);
-
-
-    static public PortraitButtonType GetPressedButton()
     {
-        PortraitButtonType pressed = PortraitButtonType.None;
-
-        byte[] result = System.BitConverter.GetBytes(GetAsyncKeyState(VK_MEDIA_NEXT_TRACK));
-        if (result[0] == 1) return PortraitButtonType.Next;
-
-        result = System.BitConverter.GetBytes(GetAsyncKeyState(VK_MEDIA_PREV_TRACK));
-        if (result[0] == 1) return PortraitButtonType.Previous;
-
-        result = System.BitConverter.GetBytes(GetAsyncKeyState(VK_MEDIA_PLAY_PAUSE));
-        if (result[0] == 1) return PortraitButtonType.Pause;
-
-        //if (result[1] == 0x80)
-        //    Debug.Log("The key is down");
-
-        return pressed;
+        None = -1,
+        Previous = 0,
+        Next = 1,
+        Pause = 2
     }
-}
+
+    public class PortraitButtons
+    {
+        #region Constants
+        static private readonly int VK_MEDIA_NEXT_TRACK = 0xB0;
+        static private readonly int VK_MEDIA_PREV_TRACK = 0xB1;
+        static private readonly int VK_MEDIA_PLAY_PAUSE = 0xB3;
+
+        #endregion // Constants
+        [DllImport("User32.dll")]
+        static private extern short GetAsyncKeyState(int vKey);
+
+
+        static public PortraitButtonType GetPressedButton()
+        {
+            PortraitButtonType pressed = PortraitButtonType.None;
+
+            byte[] result = System.BitConverter.GetBytes(GetAsyncKeyState(VK_MEDIA_NEXT_TRACK));
+            if (result[0] == 1) return PortraitButtonType.Next;
+
+            result = System.BitConverter.GetBytes(GetAsyncKeyState(VK_MEDIA_PREV_TRACK));
+            if (result[0] == 1) return PortraitButtonType.Previous;
+
+            result = System.BitConverter.GetBytes(GetAsyncKeyState(VK_MEDIA_PLAY_PAUSE));
+            if (result[0] == 1) return PortraitButtonType.Pause;
+
+            //if (result[1] == 0x80)
+            //    Debug.Log("The key is down");
+
+            return pressed;
+        }
+    }
+    */
 
     /// <summary>
     /// Represents the hardware buttons present on all generations of Looking Glass displays.
@@ -113,14 +113,15 @@ public class PortraitButtons
     /// Manages hardware inputs on Looking Glass displays.
     /// </summary>
     /// <remarks>
-    /// This is an updated version of the 
-    /// <see href="https://docs.lookingglassfactory.com/Unity/Scripts/ButtonManager">ButtonManager</see> 
+    /// This is an updated version of the
+    /// <see href="https://docs.lookingglassfactory.com/Unity/Scripts/ButtonManager">ButtonManager</see>
     /// designed to work with both Gen1 and Gen2 hardware.
     /// </remarks>
     public class InputManager : MonoBehaviour
     {
+        #region Nested Types
         /// <summary>
-        /// Checks for different button states.
+        /// Different button states we can check for.
         /// </summary>
         private enum ButtonState
         {
@@ -140,7 +141,35 @@ public class PortraitButtons
             Held
         }
 
-        #region Static Version
+        /// <summary>
+        /// Used in a lookup table to map a <see cref="HardwareButton"/> to one or more <see cref="KeyCode"/>s or
+        /// <see cref="ExtendedKeyCode"/>s.
+        /// </summary>
+        private class KeyMap
+        {
+            #region Member Variables
+            private List<KeyCode> keys = new List<KeyCode>();
+            private List<ExtendedKeyCode> extendedKeys = new List<ExtendedKeyCode>();
+            #endregion // Member Variables
+
+            #region Public Properties
+            /// <summary>
+            /// Gets the keys in the map.
+            /// </summary>
+            public List<KeyCode> Keys => keys;
+
+            /// <summary>
+            /// Gets the extended keys in the map.
+            /// </summary>
+            public List<ExtendedKeyCode> ExtendedKeys => extendedKeys;
+            #endregion // Public Properties
+        }
+        #endregion // Nested Types
+
+
+
+        #region Static Version of InputManager
+
         #region Constants
         private const string CLASSIC_JOY_KEY = "holoplay";
         private const float JOY_CHECK_INTERVAL = 3.0f;
@@ -172,8 +201,8 @@ public class PortraitButtons
 
             // Convert
             return (KeyCode)Enum.Parse(
-                    typeof(KeyCode), "Joystick" + joystick + "Button" + button
-                );
+                       typeof(KeyCode), "Joystick" + joystick + "Button" + button
+                   );
         }
         #endregion // Internal Methods
 
@@ -214,14 +243,17 @@ public class PortraitButtons
             }
         }
         #endregion // Public Properties
-        #endregion // Static Version
+
+        #endregion // Static Version  of InputManager
 
 
-        #region Instance Version
+
+        #region Instance Version of InputManager
+
         #region Member Variables
         private int classicJoyNumber = -2;
         private float timeSinceClassicCheck = -3f;
-        private Dictionary<HardwareButton, KeyCode> joyButtonMap;
+        private Dictionary<HardwareButton, KeyMap> buttonKeyMap;
         #endregion // Member Variables
 
         #region Unity Inspector Variables
@@ -249,47 +281,82 @@ public class PortraitButtons
         /// </returns>
         private bool CheckButtonState(HardwareButton button, ButtonState state)
         {
-            // Which function are we using to test?
-            Func<KeyCode, bool> keyFunc;
-            switch (state)
-            {
-                case ButtonState.Down:
-                    keyFunc = Input.GetKeyDown;
-                    break;
-                case ButtonState.Up:
-                    keyFunc = Input.GetKeyUp;
-                    break;
-                case ButtonState.Held:
-                    keyFunc = Input.GetKey;
-                    break;
-                default:
-                    throw new InvalidOperationException($"Unknown state '{state}'.");
-            }
-
-            // If we have a classic, see if we should check for this button
-            if ((classicJoyNumber > 0) && (joyButtonMap.ContainsKey(button)))
-            {
-                // Yes we have a classic and this is a classic button. What key does it map to?
-                var key = joyButtonMap[button];
-
-                // Is the key in the expected state?
-                if (keyFunc(key)) { return true; }
-            }
-
-
-            bool buttonPress = false;
-            // check keyboard if emulated
-            if (emulateWithKeyboard)
-                buttonPress = buttonFunc(ButtonToNumberOnKeyboard(button));
-
+            // If we haven't found a classic joystick yet and we're searching for one, try to search again now
             if ((searchForClassic) && (classicJoyNumber < 1))
             {
                 SearchForClassic();
             }
 
-            if (classicJoyNumber >= 0)
-                buttonPress |= buttonFunc(ButtonToJoystickKeyCode(button));
-            return buttonPress;
+            // Which functions are we using to test keys and extended keys?
+            Func<KeyCode, bool> keyFunc;
+            Func<ExtendedKeyCode, bool> extendedKeyFunc;
+            switch (state)
+            {
+                case ButtonState.Down:
+                    keyFunc = Input.GetKeyDown;
+                    extendedKeyFunc = ExtendedInput.GetKeyDown;
+                    break;
+                case ButtonState.Up:
+                    keyFunc = Input.GetKeyUp;
+                    extendedKeyFunc = ExtendedInput.GetKeyUp;
+                    break;
+                case ButtonState.Held:
+                    keyFunc = Input.GetKey;
+                    extendedKeyFunc = ExtendedInput.GetKey;
+                    break;
+                default:
+                    throw new InvalidOperationException($"Unknown state '{state}'.");
+            }
+
+            // Get the KeyMap for the specified hardware button
+            KeyMap keyMap = GetKeyMap(button);
+
+            // Check standard keys first
+            foreach (var key in keyMap.Keys)
+            {
+                if (keyFunc(key)) { return true; }
+            }
+
+            // Check extended keys
+            foreach (var eKey in keyMap.ExtendedKeys)
+            {
+                if (extendedKeyFunc(eKey)) { return true; }
+            }
+
+            // No key or extended key matched the target state
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="KeyMap"/> for the specified button, creating it if necessary.
+        /// </summary>
+        /// <param name="button">
+        /// The <see cref="HardwareButton"/> to get the <see cref="KeyMap"/> for.
+        /// </param>
+        /// <returns>
+        /// The <see cref="KeyMap"/> for the button.
+        /// </returns>
+        private KeyMap GetKeyMap(HardwareButton button)
+        {
+            // Make sure the overall lookup table is crated
+            if (buttonKeyMap == null)
+            {
+                buttonKeyMap = new Dictionary<HardwareButton, KeyMap>();
+            }
+
+            // Try to get an existing KeyMap. If not found, create it.
+            KeyMap keyMap;
+            if (!buttonKeyMap.TryGetValue(button, out keyMap))
+            {
+                // Create it
+                keyMap = new KeyMap();
+
+                // Store it
+                buttonKeyMap[button] = keyMap;
+            }
+
+            // Return the map
+            return keyMap;
         }
 
         /// <summary>
@@ -326,14 +393,13 @@ public class PortraitButtons
                 classicJoyNumber = -1;
             }
 
-            // If found, create button map
+            // If the joystick has been found, add KeyMap entries that map the joystick buttons to classic hardware buttons
             if (classicJoyNumber > 0)
             {
-                joyButtonMap = new Dictionary<HardwareButton, KeyCode>();
-                joyButtonMap[HardwareButton.Square] = JoyButtonCode(classicJoyNumber, 1);
-                joyButtonMap[HardwareButton.Left] = JoyButtonCode(classicJoyNumber, 2);
-                joyButtonMap[HardwareButton.Right] = JoyButtonCode(classicJoyNumber, 3);
-                joyButtonMap[HardwareButton.Circle] = JoyButtonCode(classicJoyNumber, 4);
+                GetKeyMap(HardwareButton.Square).Keys.Add(JoyButtonCode(classicJoyNumber, 1));
+                GetKeyMap(HardwareButton.Left).Keys.Add(JoyButtonCode(classicJoyNumber, 2));
+                GetKeyMap(HardwareButton.Right).Keys.Add(JoyButtonCode(classicJoyNumber, 3));
+                GetKeyMap(HardwareButton.Circle).Keys.Add(JoyButtonCode(classicJoyNumber, 4));
             }
         }
         #endregion // Internal Methods
@@ -349,11 +415,51 @@ public class PortraitButtons
                 Destroy(this);
                 return;
             }
-            
+
             // Make sure we don't get destroyed across scene changes
             DontDestroyOnLoad(this);
         }
+
+        /// <inheritdoc/>
+        protected virtual void Start()
+        {
+            // Add KeyMap entries that map the media keys to Portrait buttons
+            GetKeyMap(HardwareButton.Forward).ExtendedKeys.Add(ExtendedKeyCode.MediaNext);
+            GetKeyMap(HardwareButton.Back).ExtendedKeys.Add(ExtendedKeyCode.MediaPrevious);
+            GetKeyMap(HardwareButton.PlayPause).ExtendedKeys.Add(ExtendedKeyCode.MediaPlayPause);
+
+            // If emulation is enabled, add emulation key map entries as well
+            if ((emulationMode == InputEmulationMode.Always) || (emulationMode == InputEmulationMode.EditorOnly && Application.isEditor))
+            {
+                GetKeyMap(HardwareButton.Square).Keys.Add(KeyCode.Alpha1);
+                GetKeyMap(HardwareButton.Left).Keys.Add(KeyCode.Alpha2);
+                GetKeyMap(HardwareButton.Right).Keys.Add(KeyCode.Alpha3);
+                GetKeyMap(HardwareButton.Circle).Keys.Add(KeyCode.Alpha4);
+            }
+        }
         #endregion // Unity Overrides
+
+        #region Public Methods
+        /// <summary>
+        /// Returns <c>true</c> if any button is held.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if any button is held; otherwise <c>false</c>.
+        /// </returns>
+        public bool GetAnyButton()
+        {
+            // Get all buttons
+            var allButtons = Enum.GetValues(typeof(HardwareButton));
+
+            // Check for any button
+            foreach (var button in allButtons)
+            {
+                if (GetButton((HardwareButton)button)) { return true; }
+            }
+
+            // None found
+            return false;
+        }
 
         /// <summary>
         /// Returns <c>true</c> on the first frame that any button is pressed.
@@ -387,7 +493,7 @@ public class PortraitButtons
         /// </returns>
         public bool GetButton(HardwareButton button)
         {
-            return CheckButton((x) => UnityEngine.Input.GetKey(x), button);
+            return CheckButtonState(button, ButtonState.Held);
         }
 
         /// <summary>
@@ -399,7 +505,7 @@ public class PortraitButtons
         /// </returns>
         public bool GetButtonDown(HardwareButton button)
         {
-            return CheckButton((x) => UnityEngine.Input.GetKeyDown(x), button);
+            return CheckButtonState(button, ButtonState.Down);
         }
 
         /// <summary>
@@ -411,24 +517,10 @@ public class PortraitButtons
         /// </returns>
         public bool GetButtonUp(HardwareButton button)
         {
-            return CheckButton((x) => UnityEngine.Input.GetKeyUp(x), button);
+            return CheckButtonState(button, ButtonState.Up);
         }
+        #endregion // Public Methods
 
-
-        private KeyCode ButtonToJoystickKeyCode(HardwareButton button)
-        {
-            if (!joyButtonMap.ContainsKey((int)button))
-            {
-                KeyCode buttonKey = (KeyCode)Enum.Parse(
-                    typeof(KeyCode), "Joystick" + classicJoyNumber + "Button" + (int)button
-                );
-                joyButtonMap.Add((int)button, buttonKey);
-            }
-            return joyButtonMap[(int)button];
-        }
-
-
-
-        #endregion // Instance Version
+        #endregion // Instance Version of InputManager
     }
 }
