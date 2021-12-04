@@ -17,24 +17,10 @@ namespace LKGMenu
         #endregion // Member Variables
 
         #region Unity Inspector Variables
-        [Header("Keyboard Input")]
-        [SerializeField]
-        [Tooltip("The keyboard key that will activate the control with focus.")]
-        private KeyCode activateKey = KeyCode.Backslash;
-
-        [SerializeField]
-        [Tooltip("The keyboard key that will perform the 'Next' command.")]
-        private KeyCode nextKey = KeyCode.RightBracket;
-        
-        [SerializeField]
-        [Tooltip("The keyboard key that will perform the 'Previous' command.")]
-        private KeyCode previousKey = KeyCode.LeftBracket;
-
-        
         [Header("Looking Glass Input")]
         [SerializeField]
         [Tooltip("The Looking Glass button that will activate the control with focus.")]
-        private HardwareButton activateButton = HardwareButton.Square;
+        private HardwareButton activateButton = HardwareButton.PlayPause;
 
         [SerializeField]
         [Tooltip("The Looking Glass button that will perform the 'Next' command.")]
@@ -100,7 +86,7 @@ namespace LKGMenu
         protected virtual void Update()
         {
             // Check keys and buttons
-            if (UnityEngine.Input.GetKeyDown(nextKey) || ButtonManager.GetButtonDown(nextButton))
+            if (InputManager.GetButtonDown(nextButton))
             {
                 Next();
             }
