@@ -128,33 +128,23 @@ namespace LKGMenu
         /// <inheritdoc/>
         protected override UIControl OnActivate()
         {
-            // If there's no previous activation, then activate our group
-            if (lastActivated == null)
+            // If this collection hasn't captured input yet, request to capture
+            if (!HasCapture)
             {
-                lastActivated = this;
-                return this; 
+                // Request capture
+                return this;
             }
 
-            // Now activate
-            UIControl newFocus = focusedControl.Activate();
-
-            // Was the same control is activated twice in a row?
-            if (lastActivated == focusedControl) 
+            // We have capture. Is the same control being activated twice in a row?
+            // If so, we just need to release control
+            if ((lastActivated != null) && (lastActivated == focusedControl))
             {
-                // No last activated
-                lastActivated = null;
-
-                // Yes, exit the group
-                return null; 
+                // Release capture
+                return null;
             }
-            else
-            {
-                // Store this as the last activated
-                lastActivated = focusedControl;
 
-                // Shift focus
-                return newFocus;
-            }
+            // Not gaining or releasing capture, so pass on to the focused control
+            return focusedControl?.Activate();
         }
 
         /// <inheritdoc/>
@@ -173,6 +163,16 @@ namespace LKGMenu
                 // Notify current control that it got focus since the group got focus
                 focusedControl?.NotifyGotFocus();
             }
+        }
+
+        /// <inheritdoc/>
+        protected override void OnLostCapture()
+        {
+            // Pass to base first
+            base.OnLostCapture();
+
+            // We're losing capture, so forget the last control
+            lastActivated = null;
         }
 
         /// <inheritdoc/>

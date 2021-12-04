@@ -7,6 +7,13 @@ namespace LKGMenu
     /// </summary>
     public abstract class UIControl : MonoBehaviour
     {
+        #region Member Variables
+        private bool hasCapture;
+        private bool hasFocus;
+
+        
+        #endregion // Member Variables
+
         #region Overrides / Event Handlers
         /// <summary>
         /// Called when the element has been activated.
@@ -19,24 +26,20 @@ namespace LKGMenu
             return null;
         }
 
-        /*
         /// <summary>
         /// Called when element has captured input.
         /// </summary>
         protected virtual void OnGotCapture() { }
-        */
 
         /// <summary>
         /// Called when the element has received focus.
         /// </summary>
         protected virtual void OnGotFocus() { }
 
-        /*
         /// <summary>
         /// Called when element has lost captured input.
         /// </summary>
         protected virtual void OnLostCapture() { }
-        */
 
         /// <summary>
         /// Called when the element has lost focus.
@@ -66,39 +69,39 @@ namespace LKGMenu
             return OnActivate();
         }
 
-        /*
         /// <summary>
         /// Notify the element that it has captured input.
         /// </summary>
         public void NotifyGotCapture()
         {
+            hasCapture = true;
             OnGotCapture();
         }
-        */
 
         /// <summary>
         /// Notify the element that it has received focus.
         /// </summary>
         public void NotifyGotFocus()
         {
+            hasFocus = true;
             OnGotFocus();
         }
 
-        /*
         /// <summary>
         /// Notify the element that it has lost captured input.
         /// </summary>
         public void NotifyLostCapture()
         {
+            hasCapture = false;
             OnLostCapture();
         }
-        */
 
         /// <summary>
         /// Notify the element that it has lost focus.
         /// </summary>
         public void NotifyLostFocus()
         {
+            hasFocus = false;
             OnLostFocus();
         }
 
@@ -118,5 +121,17 @@ namespace LKGMenu
             OnPrevious();
         }
         #endregion // Public Methods
+
+        #region Public Properties
+        /// <summary>
+        /// Gets a value that indicates if the control has captured input.
+        /// </summary>
+        public bool HasCapture { get => hasCapture; }
+
+        /// <summary>
+        /// Gets a value that indicates if the control has focus.
+        /// </summary>
+        public bool HasFocus { get => hasFocus; }
+        #endregion // Public Properties
     }
 }

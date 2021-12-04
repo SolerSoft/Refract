@@ -1,3 +1,4 @@
+using LookingGlass;
 using Microsoft.MixedReality.Toolkit.UI;
 using System;
 using System.Collections;
@@ -16,6 +17,35 @@ namespace LKGMenu
         #endregion // Member Variables
 
         #region Unity Inspector Variables
+        [Header("Keyboard Input")]
+        [SerializeField]
+        [Tooltip("The keyboard key that will activate the control with focus.")]
+        private KeyCode activateKey = KeyCode.Backslash;
+
+        [SerializeField]
+        [Tooltip("The keyboard key that will perform the 'Next' command.")]
+        private KeyCode nextKey = KeyCode.RightBracket;
+        
+        [SerializeField]
+        [Tooltip("The keyboard key that will perform the 'Previous' command.")]
+        private KeyCode previousKey = KeyCode.LeftBracket;
+
+        
+        [Header("Looking Glass Input")]
+        [SerializeField]
+        [Tooltip("The Looking Glass button that will activate the control with focus.")]
+        private HardwareButton activateButton = HardwareButton.Square;
+
+        [SerializeField]
+        [Tooltip("The Looking Glass button that will perform the 'Next' command.")]
+        private HardwareButton nextButton = HardwareButton.Right;
+
+        [SerializeField]
+        [Tooltip("The Looking Glass button that will perform the 'Previous' command.")]
+        private HardwareButton previousButton = HardwareButton.Left;
+
+
+        [Header("UI")]
         [SerializeField]
         [Tooltip("The current control that has focus.")]
         private UIControl currentControl;
@@ -33,14 +63,16 @@ namespace LKGMenu
             // Make sure changing
             if (newControl == currentControl) { return; }
 
-            // Notify the current control that it's losing focus
+            // Notify the current control that it's losing capture and focus
+            currentControl?.NotifyLostCapture();
             currentControl?.NotifyLostFocus();
 
             // Store the new control
             currentControl = newControl;
 
-            // Notify the new control that it's got focus
-            newControl?.NotifyGotFocus();
+            // Notify the new control that it's got focus and capture
+            currentControl?.NotifyGotFocus();
+            currentControl?.NotifyGotCapture();
         }
         #endregion // Internal Methods
 
@@ -50,24 +82,33 @@ namespace LKGMenu
         /// </summary>
         protected virtual void Start()
         {
-            // If there is no control specified, look for one on the same GameObject
+            // Was a control provided on start?
             if (currentControl == null)
             {
-                currentControl = GetComponent<UIControl>();
+                // No, search for one
+                CurrentControl = GetComponent<UIControl>();
+            }
+            else
+            {
+                // Yes, get it into the right starting state
+                controlStack.Push(currentControl);
+                currentControl.NotifyGotFocus();
+                currentControl.NotifyGotCapture();
             }
         }
 
         protected virtual void Update()
         {
-            if (UnityEngine.Input.GetKeyDown(KeyCode.RightBracket))
+            // Check keys and buttons
+            if (UnityEngine.Input.GetKeyDown(nextKey) || ButtonManager.GetButtonDown(nextButton))
             {
                 Next();
             }
-            else if (UnityEngine.Input.GetKeyDown(KeyCode.LeftBracket))
+            else if (UnityEngine.Input.GetKeyDown(previousKey) || ButtonManager.GetButtonDown(previousButton))
             {
                 Previous();
             }
-            else if (UnityEngine.Input.GetKeyDown(KeyCode.Backslash))
+            else if (UnityEngine.Input.GetKeyDown(activateKey) || (ButtonManager.GetButtonDown(activateButton)))
             {
                 Activate();
             }
