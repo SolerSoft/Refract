@@ -396,6 +396,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1673468363649921907, guid: f009ec1ad263730459126babc3cbea39, type: 3}
+      propertyPath: m_text
+      value: Slider Label
+      objectReference: {fileID: 0}
+    - target: {fileID: 2977158712577480441, guid: f009ec1ad263730459126babc3cbea39, type: 3}
+      propertyPath: m_Name
+      value: Slider Label
+      objectReference: {fileID: 0}
     - target: {fileID: 5947047917839937221, guid: f009ec1ad263730459126babc3cbea39, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.09765625
@@ -483,6 +491,14 @@ PrefabInstance:
     - target: {fileID: 5951897749075923981, guid: f009ec1ad263730459126babc3cbea39, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985023402979720041, guid: f009ec1ad263730459126babc3cbea39, type: 3}
+      propertyPath: startDimensionIndex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985049449825647552, guid: f009ec1ad263730459126babc3cbea39, type: 3}
+      propertyPath: startDimensionIndex
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f009ec1ad263730459126babc3cbea39, type: 3}

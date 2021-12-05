@@ -25,8 +25,8 @@ MonoBehaviour:
   profiles:
   - Target: {fileID: 619189712504982431}
     Themes:
-    - {fileID: 11400000, guid: 6c08928bdf950d54390c1346d23d422b, type: 2}
-    - {fileID: 11400000, guid: cb5abaa7279811d409e5bac06ad02a1f, type: 2}
+    - {fileID: 11400000, guid: 3ece74fec841c854f91202971e48fc84, type: 2}
+    - {fileID: 11400000, guid: cb703f0bb342bfd4084feaf63e3745e7, type: 2}
   OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -81,6 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f37e0019a5eeb4da618e2436c25e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactable: {fileID: 0}
   changeAmount: 0.1
   slider: {fileID: 619189711780655723}
 --- !u!1001 &7921878726755843915
@@ -90,6 +91,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7307063430134822100, guid: 1093263a89abe47499cccf7dcb08effb, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307063430134822102, guid: 1093263a89abe47499cccf7dcb08effb, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a07d81f563d59544fb6ae5588f5bd0be, type: 2}
+    - target: {fileID: 7307063430522344681, guid: 1093263a89abe47499cccf7dcb08effb, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7307063430618434848, guid: 1093263a89abe47499cccf7dcb08effb, type: 3}
+      propertyPath: sliderEndDistance
+      value: 0.12499999
+      objectReference: {fileID: 0}
     - target: {fileID: 7307063430618434848, guid: 1093263a89abe47499cccf7dcb08effb, type: 3}
       propertyPath: sliderStartDistance
       value: -0.12499997

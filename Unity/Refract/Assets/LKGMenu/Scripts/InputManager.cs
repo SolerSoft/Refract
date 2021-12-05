@@ -68,14 +68,14 @@ namespace LookingGlass
     }
 
     /// <summary>
-    /// Manages hardware inputs on Looking Glass displays.
+    /// Manages hardware inputs on types of Looking Glass displays including modern and classic.
     /// </summary>
     /// <remarks>
     /// This is an updated version of the
     /// <see href="https://docs.lookingglassfactory.com/Unity/Scripts/ButtonManager">ButtonManager</see>
     /// designed to work with both Gen1 and Gen2 hardware.
     /// </remarks>
-    public class InputManager : MonoBehaviour
+    public class InputManager
     {
         #region Nested Types
         /// <summary>
@@ -123,8 +123,6 @@ namespace LookingGlass
             #endregion // Public Properties
         }
         #endregion // Nested Types
-
-
 
         #region Constants
         private const string CLASSIC_JOY_KEY = "holoplay";

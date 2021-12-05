@@ -72,5 +72,12 @@ namespace LKGMenu
             }
         }
         #endregion // Overrides / Event Handlers
+
+        #region Public Properties
+        /// <summary>
+        /// Gets or sets the <see cref="Interactable"/> represented by this control.
+        /// </summary>
+        public Interactable Interactable { get => interactable; set => interactable = value; }
+        #endregion // Public Properties
     }
 }

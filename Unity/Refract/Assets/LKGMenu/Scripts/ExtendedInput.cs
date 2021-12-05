@@ -1,13 +1,9 @@
 ﻿#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-#define UNITY_WINDOWS
-#endif // UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+#define EXTENDED_INPUT_WINDOWS
+#endif
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 /// <summary>
@@ -32,8 +28,12 @@ public enum ExtendedKeyCode : int
 }
 
 /// <summary>
-/// Helper class for working with keys that Unity doesn't support.
+/// Enables working with extended keys which Unity does not support.
 /// </summary>
+/// <remarks>
+/// Currently this class only works on Windows. The method <see cref="GetKey(int)"/> is the only method that would
+/// needs to be updated to support other operating systems.
+/// </remarks>
 static public class ExtendedInput
 {
     #region Nested Types
@@ -59,10 +59,10 @@ static public class ExtendedInput
     #endregion // Member Variables
 
     #region Imported Functions
-    #if UNITY_WINDOWS
+    #if EXTENDED_INPUT_WINDOWS
     [DllImport("User32.dll")]
     static private extern short GetAsyncKeyState(int vKey);
-    #endif // UNITY_WINDOWS
+    #endif // EXTENDED_INPUT_WINDOWS
     #endregion // Imported Functions
 
     /// <summary>
@@ -119,7 +119,6 @@ static public class ExtendedInput
         }
     }
 
-
     /// <summary>
     /// Gets a value that indicates if the specified key is currently held.
     /// </summary>
@@ -131,10 +130,10 @@ static public class ExtendedInput
     /// </returns>
     static public bool GetKey(int keyCode)
     {
-        #if UNITY_WINDOWS
+        #if EXTENDED_INPUT_WINDOWS
         byte[] result = System.BitConverter.GetBytes(GetAsyncKeyState((int)keyCode));
         if (result[0] == 1) { return true; }
-        #endif // UNITY_WINDOWS
+        #endif // EXTENDED_INPUT_WINDOWS
 
         // TODO: How do we handle this on Mac and other platforms?
 
