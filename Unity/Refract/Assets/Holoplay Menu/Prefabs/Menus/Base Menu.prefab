@@ -245,6 +245,12 @@ MonoBehaviour:
   menuRoot: {fileID: 6019005499834540367}
   controlCollection: {fileID: 2844940502811890215}
   menuButton: {fileID: 292706568070409356}
+  Hidden:
+    m_PersistentCalls:
+      m_Calls: []
+  Shown:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6019005499834540367
 GameObject:
   m_ObjectHideFlags: 0
@@ -642,9 +648,21 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5648820553532620695, guid: 3da55b106294f7e448bf5db9007891d8, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5648820553532620695, guid: 3da55b106294f7e448bf5db9007891d8, type: 3}
       propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 6019005499834540367}
+      objectReference: {fileID: 7257504746275997450}
+    - target: {fileID: 5648820553532620695, guid: 3da55b106294f7e448bf5db9007891d8, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Hide
+      objectReference: {fileID: 0}
+    - target: {fileID: 5648820553532620695, guid: 3da55b106294f7e448bf5db9007891d8, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LookingGlass.Menu.MenuController, Assembly-CSharp
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3da55b106294f7e448bf5db9007891d8, type: 3}
 --- !u!4 &7386974979777535390 stripped

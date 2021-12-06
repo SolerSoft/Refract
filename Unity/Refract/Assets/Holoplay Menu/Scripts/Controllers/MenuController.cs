@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace LookingGlass.Menu
 {
@@ -28,10 +29,16 @@ namespace LookingGlass.Menu
         private UIControl menuButton;
         #endregion // Unity Inspector Variables
 
+        #region Unity Overrides
+        /// <inheritdoc/>
         protected override void Start()
         {
             // Pass to base first
             base.Start();
+
+            // Create our events
+            Hidden = new UnityEvent();
+            Shown = new UnityEvent();
 
             // If an control collection wasn't provided, try and find one
             if (controlCollection == null)
@@ -52,6 +59,7 @@ namespace LookingGlass.Menu
                 CurrentControl = controlCollection;
             }
         }
+        #endregion // Unity Overrides
 
         #region Public Methods
         /// <inheritdoc/>
@@ -60,14 +68,38 @@ namespace LookingGlass.Menu
             // Make sure the menu root visible or pass it on?
             if ((menuRoot != null) && (!menuRoot.activeSelf))
             {
-                // Show menu
-                menuRoot.SetActive(true);
+                // Show the menu
+                Show();
             }
             else
             {
                 // Pass on to base
                 base.Activate();
             }
+        }
+
+        /// <summary>
+        /// Causes the menu to be hidden.
+        /// </summary>
+        public void Hide()
+        {
+            // Show menu
+            if (menuRoot != null) { menuRoot.SetActive(false); }
+
+            // Notify
+            Hidden.Invoke();
+        }
+
+        /// <summary>
+        /// Causes the menu to be shown.
+        /// </summary>
+        public void Show()
+        {
+            // Show menu
+            if (menuRoot != null) { menuRoot.SetActive(true); }
+
+            // Notify
+            Shown.Invoke();
         }
         #endregion // Public Methods
 
@@ -93,5 +125,19 @@ namespace LookingGlass.Menu
         /// </remarks>
         public GameObject MenuRoot { get => menuRoot; set => menuRoot = value; }
         #endregion // Public Properties
+
+        #region Public Events
+        /// <summary>
+        /// Raised when the menu is hidden.
+        /// </summary>
+        [Tooltip("Raised when the menu is hidden.")]
+        public UnityEvent Hidden;
+
+        /// <summary>
+        /// Raised when the menu is shown.
+        /// </summary>
+        [Tooltip("Raised when the menu is shown.")]
+        public UnityEvent Shown;
+        #endregion // Public Events
     }
 }
