@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,11 @@ namespace LookingGlass.Menu
         [Tooltip("The GameObject that represents the root of the menu.")]
         private GameObject menuRoot;
 
+        [SerializeField]
+        [Tooltip("Indicates if the menu will be shown when the app is started.")]
+        private bool showOnStart = false;
+
+
         [Header("Controls")]
         [SerializeField]
         [Tooltip("The collection of controls displayed in the menu.")]
@@ -27,7 +33,38 @@ namespace LookingGlass.Menu
         [SerializeField]
         [Tooltip("The UI Control that represents the menu button.")]
         private UIControl menuButton;
+
+        [SerializeField]
+        [Tooltip("The control that represents the title.")]
+        private TextMesh titleControl;
+
+        [SerializeField]
+        [Tooltip("The control that represents the subtitle.")]
+        private TextMesh subtitleControl;
+
+
+        [Header("Text")]
+        [SerializeField]
+        [Tooltip("The title of the menu.")]
+        private string title = "Title";
+
+        [SerializeField]
+        [Tooltip("The subtitle of the menu.")]
+        private string subtitle = "Subtitle";
         #endregion // Unity Inspector Variables
+
+        #region Internal Methods
+        /// <summary>
+        /// Updates controls, if available.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void SyncControls()
+        {
+            if (titleControl != null) { titleControl.text = title; }
+            if (subtitleControl != null) { subtitleControl.text = subtitle; }
+            if (menuRoot != null) { menuRoot.SetActive(showOnStart); }
+        }
+        #endregion // Internal Methods
 
         #region Unity Overrides
         /// <inheritdoc/>
@@ -39,6 +76,9 @@ namespace LookingGlass.Menu
             // Create our events
             Hidden = new UnityEvent();
             Shown = new UnityEvent();
+
+            // Update controls
+            SyncControls();
 
             // If an control collection wasn't provided, try and find one
             if (controlCollection == null)
@@ -57,6 +97,18 @@ namespace LookingGlass.Menu
 
                 // Yes, assign it
                 CurrentControl = controlCollection;
+            }
+
+            // Show or hide on start
+            if (showOnStart)
+            {
+                // Show
+                Show();
+            }
+            else
+            {
+                // Hide
+                Hide();
             }
         }
         #endregion // Unity Overrides
@@ -124,6 +176,37 @@ namespace LookingGlass.Menu
         /// The root of the menu will be shown and hidden based on user input.
         /// </remarks>
         public GameObject MenuRoot { get => menuRoot; set => menuRoot = value; }
+
+        /// <summary>
+        /// Gets or sets a value that indicates if the menu will be shown when the app is started.
+        /// </summary>
+        public bool ShowOnStart { get => showOnStart; set => showOnStart = value; }
+
+        /// <summary>
+        /// Gets or sets the subtitle of the menu.
+        /// </summary>
+        public string Subtitle
+        {
+            get => subtitle;
+            set
+            {
+                subtitle = value;
+                if (subtitleControl != null) { subtitleControl.text = value; }
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the title of the menu.
+        /// </summary>
+        public string Title
+        {
+            get => title;
+            set
+            {
+                title = value;
+                if (titleControl != null) { titleControl.text = value; }
+            }
+        }
         #endregion // Public Properties
 
         #region Public Events

@@ -70,6 +70,12 @@ namespace LookingGlass.Menu
 
         #region Unity Overrides
         /// <inheritdoc/>
+        protected virtual void OnValidate()
+        {
+
+        }
+
+        /// <inheritdoc/>
         protected virtual void Start()
         {
         }
