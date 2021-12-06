@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace LKGMenu
 {
@@ -14,6 +15,7 @@ namespace LKGMenu
     {
         #region Member Variables
         private Stack<UIControl> controlStack = new Stack<UIControl>();
+        private UIControl currentControl;
         #endregion // Member Variables
 
         #region Unity Inspector Variables
@@ -30,11 +32,10 @@ namespace LKGMenu
         [Tooltip("The Looking Glass button that will perform the 'Previous' command.")]
         private HardwareButton previousButton = HardwareButton.Back;
 
-
-        [Header("UI")]
+        [Header("Controls")]
         [SerializeField]
-        [Tooltip("The current control that has focus.")]
-        private UIControl currentControl;
+        [Tooltip("The control that will initially have focus.")]
+        private UIControl initialControl;
         #endregion // Unity Inspector Variables
 
         #region Internal Methods
@@ -59,30 +60,41 @@ namespace LKGMenu
             // Notify the new control that it's got focus and capture
             currentControl?.NotifyGotFocus();
             currentControl?.NotifyGotCapture();
+
+            // Notify subscribers of the change
+            OnCurrentControlChanged();
         }
         #endregion // Internal Methods
 
-        #region Unity Overrides
+        #region Overridables / Event Triggers
         /// <summary>
-        /// Start is called before the first frame update
+        /// Raised when the value of <see cref="CurrentControl"/> has changed.
         /// </summary>
+        protected virtual void OnCurrentControlChanged()
+        {
+            CurrentControlChanged?.Invoke(this, EventArgs.Empty);
+        }
+        #endregion // Overridables / Event Triggers
+
+        #region Unity Overrides
+        /// <inheritdoc/>
         protected virtual void Start()
         {
-            // Was a control provided on start?
-            if (currentControl == null)
+            // If an initial control wasn't provided, try and find one
+            if (initialControl == null)
             {
-                // No, search for one
-                CurrentControl = GetComponent<UIControl>();
+                initialControl = GetComponent<UIControl>();
             }
-            else
+
+            // Do we have an initial control to start with?
+            if (initialControl != null)
             {
-                // Yes, get it into the right starting state
-                controlStack.Push(currentControl);
-                currentControl.NotifyGotFocus();
-                currentControl.NotifyGotCapture();
+                // Yes, assign it
+                CurrentControl = initialControl;
             }
         }
 
+        /// <inheritdoc/>
         protected virtual void Update()
         {
             // Check keys and buttons
@@ -105,7 +117,7 @@ namespace LKGMenu
         /// <summary>
         /// Activates the currently focused <see cref="UIControl"/>.
         /// </summary>
-        public void Activate()
+        public virtual void Activate()
         {
             // Validate
             if (currentControl == null) throw new InvalidOperationException($"{nameof(CurrentControl)} is currently null.");
@@ -131,7 +143,7 @@ namespace LKGMenu
                     // Is there even another control to go back to?
                     if (controlStack.Count > 0)
                     {
-                        // Pop to previous control
+                        // Yes. Pop to previous control.
                         SetCurrentControl(controlStack.Pop());
                     }
                 }
@@ -141,7 +153,7 @@ namespace LKGMenu
         /// <summary>
         /// Performs the 'Next' command.
         /// </summary>
-        public void Next()
+        public virtual void Next()
         {
             // Validate
             if (currentControl == null) throw new InvalidOperationException($"{nameof(CurrentControl)} is currently null.");
@@ -153,7 +165,7 @@ namespace LKGMenu
         /// <summary>
         /// Performs the 'Previous' command.
         /// </summary>
-        public void Previous()
+        public virtual void Previous()
         {
             // Validate
             if (currentControl == null) throw new InvalidOperationException($"{nameof(CurrentControl)} is currently null.");
@@ -165,7 +177,7 @@ namespace LKGMenu
 
         #region Public Properties
         /// <summary>
-        /// Gets or sets the currently focused <see cref="UIControl"/>.
+        /// Gets or sets the <see cref="UIControl"/> that currently has focus.
         /// </summary>
         public UIControl CurrentControl
         {
@@ -175,6 +187,18 @@ namespace LKGMenu
                 SetCurrentControl(value);
             }
         }
+
+        /// <summary>
+        /// Gets or sets the initial <see cref="UIControl"/> that will receive focus.
+        /// </summary>
+        public UIControl InitialControl { get => initialControl; set => initialControl = value; }
         #endregion // Public Properties
+
+        #region Public Events
+        /// <summary>
+        /// Raised when the value of <see cref="CurrentControl"/> has changed.
+        /// </summary>
+        public event EventHandler CurrentControlChanged;
+        #endregion // Public Events
     }
 }
