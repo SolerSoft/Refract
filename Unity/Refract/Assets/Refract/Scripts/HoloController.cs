@@ -10,12 +10,12 @@ namespace Refract
     public class HoloController : MonoBehaviour
     {
         #region Constants
-        private const float DEPTHINESS_DEFAULT = 10.0f;
-        private const float DEPTHINESS_MAX = 20.0f;
-        private const float DEPTHINESS_MIN = 0.0f;
-        private const float FOCUS_DEFAULT = 0;
-        private const float FOCUS_MAX = 10;
-        private const float FOCUS_MIN = -10;
+        public const float DEPTHINESS_DEFAULT = 10.0f;
+        public const float DEPTHINESS_MAX = 20.0f;
+        public const float DEPTHINESS_MIN = 0.0f;
+        public const float FOCUS_DEFAULT = 0;
+        public const float FOCUS_MAX = 10;
+        public const float FOCUS_MIN = -10;
         #endregion // Constants
 
         #region Member Variables

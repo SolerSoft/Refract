@@ -1,6 +1,9 @@
+using LookingGlass;
 using LookingGlass.Menu;
+using Microsoft.MixedReality.Toolkit.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 namespace Refract
@@ -17,8 +20,18 @@ namespace Refract
         private HoloController holoController;
 
         [SerializeField]
+        [Tooltip("The HoloPlay object that controls the display.")]
+        private Holoplay holoPlay;
+
+        [SerializeField]
         [Tooltip("The MenuController that controls the main menu.")]
         private MenuController menuController;
+
+
+        [Header("Control")]
+        [SerializeField]
+        [Tooltip("The slider that adjusts the depthiness of the projector.")]
+        private PinchSlider depthinessSlider;
 
 
         [Header("Settings")]
@@ -27,12 +40,37 @@ namespace Refract
         private bool showSceneInMenu;
         #endregion // Unity Inspector Variables
 
+        #region Internal Methods
+        static private float PercentToRange(float min, float max, float percent)
+        {
+            float r = (max - min);
+            return (r * percent) + min;
+        }
+        static private float RangeToPercent(float min, float max, float range)
+        {
+            float r = (max - min);
+            float mr = range + min;
+            return mr / r;
+        }
+
+        /// <summary>
+        /// Sets the menu controls to match the scene.
+        /// </summary>
+        private void SceneToControls()
+        {
+            depthinessSlider.SliderValue = RangeToPercent(HoloController.DEPTHINESS_MIN, HoloController.DEPTHINESS_MAX, holoController.Depthiness);
+        }
+        #endregion // Internal Methods
+
         #region Overrides / Event Handlers
         /// <summary>
         /// Occurs when the menu is hidden.
         /// </summary>
         private void MainMenu_Hidden()
         {
+            // Unsubscribe from control events
+            depthinessSlider.OnValueUpdated.RemoveListener(Depthiness_SliderChanged);
+
             // Make sure the scene is visible again
             holoController.Projector.gameObject.SetActive(true);
         }
@@ -42,11 +80,28 @@ namespace Refract
         /// </summary>
         private void MainMenu_Shown()
         {
+            // Load controls
+            SceneToControls();
+
+            // Subscribe to control events
+            depthinessSlider.OnValueUpdated.AddListener(Depthiness_SliderChanged);
+
             // Hide the scene while the menu is open?
             if (!showSceneInMenu)
             {
                 holoController.Projector.gameObject.SetActive(false);
             }
+        }
+
+        /// <summary>
+        /// Called when the value of the Depthiness slider has changed.
+        /// </summary>
+        /// <param name="data">
+        /// Event data from the slider.
+        /// </param>
+        private void Depthiness_SliderChanged(SliderEventData data)
+        {
+            holoController.Depthiness = PercentToRange(HoloController.DEPTHINESS_MIN, HoloController.DEPTHINESS_MAX, data.NewValue);
         }
         #endregion // Overrides / Event Handlers
 

@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   holoController: {fileID: 0}
+  holoPlay: {fileID: 0}
   menuController: {fileID: 10580426706292401}
+  depthinessSlider: {fileID: 5782323209840573611}
   showSceneInMenu: 0
 --- !u!1001 &1791197802616100888
 PrefabInstance:
@@ -279,3 +281,107 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7327655323529614430, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
   m_PrefabInstance: {fileID: 6033183082155612084}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6388705243144130240
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3894245598516446186}
+    m_Modifications:
+    - target: {fileID: 619189711780655717, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_Name
+      value: Depthiness Slider
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655720, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655720, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655720, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655720, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655720, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655720, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655720, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655720, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655720, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655720, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655720, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655723, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: sliderEndDistance
+      value: 0.12499997
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655723, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: OnValueUpdated.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655723, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: OnValueUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655723, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: OnValueUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 646636454616838366}
+    - target: {fileID: 619189711780655723, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: OnValueUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655723, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: OnValueUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Depthiness_SliderChanged
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655723, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: OnValueUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Refract.MainMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 619189711780655723, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: OnValueUpdated.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2485673464017753835, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: VoiceCommand
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+--- !u!114 &5782323209840573611 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 619189711780655723, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+  m_PrefabInstance: {fileID: 6388705243144130240}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d11c9594c7919e41991b47c0a9275f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

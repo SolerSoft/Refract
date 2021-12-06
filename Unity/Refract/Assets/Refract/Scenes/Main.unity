@@ -272,6 +272,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 646636454616838366, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+      propertyPath: holoPlay
+      value: 
+      objectReference: {fileID: 1015572679}
+    - target: {fileID: 646636454616838366, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: holoController
       value: 
       objectReference: {fileID: 1239773365}
@@ -341,6 +345,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+--- !u!114 &1015572679 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
+  m_PrefabInstance: {fileID: 878256347}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de313519d88fe64f97b9e99db9c6c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1239773362
 GameObject:
   m_ObjectHideFlags: 0
@@ -353,7 +368,7 @@ GameObject:
   - component: {fileID: 1239773363}
   - component: {fileID: 1239773365}
   m_Layer: 0
-  m_Name: Controller
+  m_Name: Scene Controller
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
