@@ -55,6 +55,39 @@ namespace LookingGlass.Menu
 
         #region Internal Methods
         /// <summary>
+        /// Ensures that the menu button is the first child.
+        /// </summary>
+        private void EnsureMenuButtonFirstChild()
+        {
+            // Do we have a control collection and menu button?
+            if ((controlCollection != null) && (menuButton != null))
+            {
+                // Get the index of the menu button
+                int index = controlCollection.Controls.IndexOf(menuButton);
+
+                // What we do now is based on the index
+                if (index == -1)
+                {
+                    // if it's -1 then it's not in the list and we just need to insert it.
+                    controlCollection.Controls.Insert(0, menuButton);
+                }
+                else if (index == 0)
+                {
+                    // It's already the first child. Nothing to do.
+                }
+                else
+                {
+                    // It's at the wrong index. We need to move it to the beginning
+                    controlCollection.Controls.RemoveAt(index);
+                    controlCollection.Controls.Insert(0, menuButton);
+                }
+
+                // If there's currently no focus, go ahead and focus on the menu button
+                if (controlCollection.FocusedControl == null) { controlCollection.FocusedControl = menuButton; }
+            }
+        }
+
+        /// <summary>
         /// Updates controls, if available.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -89,13 +122,7 @@ namespace LookingGlass.Menu
             // Do we have a control collection now?
             if (controlCollection != null)
             {
-                // If we have a menu button, make sure it's in the list
-                if ((menuButton != null) && (!controlCollection.Controls.Contains(menuButton)))
-                {
-                    controlCollection.Controls.Add(menuButton);
-                }
-
-                // Yes, assign it
+                // Yes, assign it as the current control
                 CurrentControl = controlCollection;
             }
 
@@ -147,6 +174,9 @@ namespace LookingGlass.Menu
         /// </summary>
         public void Show()
         {
+            // Every time we're about to show, make sure the menu button is the first child
+            EnsureMenuButtonFirstChild();
+
             // Show menu
             if (menuRoot != null) { menuRoot.SetActive(true); }
 
@@ -165,7 +195,7 @@ namespace LookingGlass.Menu
         /// Gets or sets the <see cref="UIControl"/> that represents the menu button.
         /// </summary>
         /// <remarks>
-        /// The menu button hides the menu. It is generally the last control in the tab order.
+        /// The menu button hides the menu.
         /// </remarks>
         public UIControl MenuButton { get => menuButton; set => menuButton = value; }
 

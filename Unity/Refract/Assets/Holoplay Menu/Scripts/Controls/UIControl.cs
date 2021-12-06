@@ -14,6 +14,32 @@ namespace LookingGlass.Menu
 
         #endregion // Member Variables
 
+        #region Unity Overrides
+        /// <inheritdoc/>
+        protected virtual void Awake()
+        {
+
+        }
+
+        /// <inheritdoc/>
+        protected virtual void OnDisable()
+        {
+
+        }
+
+        /// <inheritdoc/>
+        protected virtual void OnEnable()
+        {
+
+        }
+
+        /// <inheritdoc/>
+        protected virtual void Start()
+        {
+
+        }
+        #endregion // Unity Overrides
+
         #region Overrides / Event Handlers
         /// <summary>
         /// Called when the element has been activated.

@@ -18,16 +18,27 @@ namespace LookingGlass.Menu
 
         #region Unity Overrides
         /// <inheritdoc/>
-        protected virtual void Awake()
+        protected override void Awake()
         {
             // If there is no control specified, look for one on the same GameObject
             if (interactable == null)
             {
                 interactable = GetComponent<Interactable>();
-                if (interactable != null)
-                {
-                    interactable.HasFocus = this.HasFocus;
-                }
+            }
+
+            // Pass to base to complete
+            base.Awake();
+        }
+
+        protected override void OnEnable()
+        {
+            // Pass to base first
+            base.OnEnable();
+
+            // Make sure the interactable reflects the right state
+            if (interactable != null)
+            {
+                interactable.HasFocus = this.HasFocus;
             }
         }
         #endregion // Unity Overrides

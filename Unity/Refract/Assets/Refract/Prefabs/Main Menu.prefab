@@ -15,6 +15,184 @@ MonoBehaviour:
   holoController: {fileID: 0}
   menuController: {fileID: 10580426706292401}
   showSceneInMenu: 0
+--- !u!1001 &1791197802616100888
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 3894245598516446186}
+    m_Modifications:
+    - target: {fileID: 2315510266277204389, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_Name
+      value: CheckBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317905551814561203, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317905551814561203, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.16
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317905551814561203, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317905551814561203, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317905551814561203, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317905551814561203, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317905551814561203, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317905551814561203, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317905551814561203, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317905551814561203, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2317905551814561203, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2398353413949305169, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: m_Text
+      value: Show scene in menu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].ClassName
+      value: InteractableOnToggleReceiver
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].AssemblyQualifiedName
+      value: Microsoft.MixedReality.Toolkit.UI.InteractableOnToggleReceiver, Microsoft.MixedReality.Toolkit.SDK,
+        Version=2.7.2.0, Culture=neutral, PublicKeyToken=null
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].Name
+      value: OnDeselect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].Type
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].Label
+      value: On Deselect
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].Tooltip
+      value: The toggle is deselected
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 646636454616838366}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].AudioClipValue
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_ShowSceneInMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Refract.MainMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 646636454616838366}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_ShowSceneInMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Refract.MainMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].EventValue.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].EventValue.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].EventValue.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 646636454616838366}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].EventValue.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].EventValue.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_ShowSceneInMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Event.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].EventValue.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Refract.MainMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428107777771825481, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
+      propertyPath: Events.Array.data[0].Settings.Array.data[0].EventValue.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d8fad164c666abe48b037024d3ebe681, type: 3}
 --- !u!1001 &6033183082155612084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -96,3 +274,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b38fe492d392e6409d50ca9895b3396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &3894245598516446186 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7327655323529614430, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
+  m_PrefabInstance: {fileID: 6033183082155612084}
+  m_PrefabAsset: {fileID: 0}

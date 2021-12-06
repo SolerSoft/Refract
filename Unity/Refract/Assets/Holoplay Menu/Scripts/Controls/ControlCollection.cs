@@ -14,7 +14,6 @@ namespace LookingGlass.Menu
     public class ControlCollection : UIControl
     {
         #region Member Variables
-        private int currentIndex = -1;
         private UIControl focusedControl;
         private UIControl lastActivated;
         #endregion // Member Variables
@@ -58,9 +57,6 @@ namespace LookingGlass.Menu
             {
                 focusedControl.NotifyLostFocus();
             }
-
-            // Store the new index
-            currentIndex = index;
 
             // Store the new input
             focusedControl = control;
@@ -111,10 +107,8 @@ namespace LookingGlass.Menu
         #endregion // Internal Methods
 
         #region Unity Overrides
-        /// <summary>
-        /// Start is called before the first frame update
-        /// </summary>
-        protected virtual void Start()
+        /// <inheritdoc/>
+        protected override void Start()
         {
             // Make sure we have a collection
             if (controls == null)
@@ -122,11 +116,18 @@ namespace LookingGlass.Menu
                 controls = new List<UIControl>();
             }
 
-            // Find new controls
-            if (controls.Count < 1)
+            // Get child controls
+            var children = this.GetComponentsInDirectChildren<UIControl>();
+            foreach (var child in children)
             {
-                controls.AddRange(this.GetComponentsInDirectChildren<UIControl>());
+                if (!controls.Contains(child))
+                {
+                    controls.Add(child);
+                }
             }
+
+            // Pass on to base to complete
+            base.Start();
         }
         #endregion // Unity Overrides
 
@@ -201,7 +202,7 @@ namespace LookingGlass.Menu
             if ((controls == null) || (controls.Count < 1)) { return; }
 
             // Calculate next index
-            int nextIndex = currentIndex + 1;
+            int nextIndex = FocusedIndex + 1;
 
             // Check for loop
             if (nextIndex >= controls.Count) { nextIndex = 0; }
@@ -220,10 +221,10 @@ namespace LookingGlass.Menu
             if ((controls == null) || (controls.Count < 1)) { return; }
 
             // Calculate next index
-            int nextIndex = currentIndex - 1;
+            int nextIndex = FocusedIndex - 1;
 
             // Check for loop
-            if (nextIndex == -1) { nextIndex = controls.Count - 1; }
+            if (nextIndex < 0) { nextIndex = controls.Count - 1; }
 
             // Go!
             SetFocus(nextIndex);
@@ -236,7 +237,17 @@ namespace LookingGlass.Menu
         /// </summary>
         public int FocusedIndex
         {
-            get => currentIndex;
+            get
+            {
+                if ((focusedControl != null) && (controls != null))
+                {
+                    return (controls.IndexOf(focusedControl));
+                }
+                else
+                {
+                    return -1;
+                }
+            }
             set
             {
                 SetFocus(value);
