@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace LKGMenu
+namespace LookingGlass.Menu
 {
     /// <summary>
     /// Allows a MRTK <see cref="PinchSlider"/> to function as a <see cref="UIControl"/>.

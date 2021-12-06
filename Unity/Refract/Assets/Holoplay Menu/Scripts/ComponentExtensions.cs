@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace LKGMenu
+namespace LookingGlass.Menu
 {
     /// <summary>
     /// Helps manage components.
     /// </summary>
-    /// <remarks>Based on 
+    /// <remarks>Based on
     /// https://forum.unity.com/threads/quickly-retrieving-the-immediate-children-of-a-gameobject.39451/#post-3554195
     /// </remarks>
     static public class ComponentExtensions

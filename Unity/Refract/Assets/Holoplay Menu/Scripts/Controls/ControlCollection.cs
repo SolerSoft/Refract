@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace LKGMenu
+namespace LookingGlass.Menu
 {
     /// <summary>
     /// A <see cref="UIControl"/> that contains other UI controls.
@@ -22,7 +22,7 @@ namespace LKGMenu
         #region Unity Inspector Variables
         [SerializeField]
         [Tooltip("The list of controls in the collection.")]
-        private UIControl[] controls;
+        private List<UIControl> controls;
         #endregion // Unity Inspector Variables
 
         #region Internal Methods
@@ -47,10 +47,10 @@ namespace LKGMenu
             if (control != null)
             {
                 // Get the index
-                index = Array.IndexOf(controls, control);
+                index = controls.IndexOf(control);
 
                 // Make sure it's in the list
-                if (index < 0) { throw new InvalidOperationException($"{nameof(control)} was not found in {nameof(Controls)}."); }
+                if (index < 0) { throw new InvalidOperationException($"The specified control was not found in the {nameof(Controls)} collection."); }
             }
 
             // If existing, lose focus
@@ -85,7 +85,7 @@ namespace LKGMenu
             ValidateControls();
 
             // Validate the index
-            if ((index < -1) || (index > controls.Length - 1)) { throw new ArgumentOutOfRangeException(nameof(index)); }
+            if ((index < -1) || (index > controls.Count - 1)) { throw new ArgumentOutOfRangeException(nameof(index)); }
 
             // Set focus by reference
             if (index == -1)
@@ -116,10 +116,16 @@ namespace LKGMenu
         /// </summary>
         protected virtual void Start()
         {
-            // Find new controls
-            if ((controls == null) || (controls.Length < 1))
+            // Make sure we have a collection
+            if (controls == null)
             {
-                Controls = this.GetComponentsInDirectChildren<UIControl>();
+                controls = new List<UIControl>();
+            }
+
+            // Find new controls
+            if (controls.Count < 1)
+            {
+                controls.AddRange(this.GetComponentsInDirectChildren<UIControl>());
             }
         }
         #endregion // Unity Overrides
@@ -156,7 +162,7 @@ namespace LKGMenu
             // If no currently focused control for the group, set to first available control
             if (focusedControl == null)
             {
-                if (controls.Length > 0) { SetFocus(0); }
+                if (controls.Count > 0) { SetFocus(0); }
             }
             else
             {
@@ -192,13 +198,13 @@ namespace LKGMenu
             base.OnNext();
 
             // If there are no controls, nothing to do
-            if ((controls == null) || (controls.Length < 1)) { return; }
+            if ((controls == null) || (controls.Count < 1)) { return; }
 
             // Calculate next index
             int nextIndex = currentIndex + 1;
 
             // Check for loop
-            if (nextIndex >= controls.Length) { nextIndex = 0; }
+            if (nextIndex >= controls.Count) { nextIndex = 0; }
 
             // Go!
             SetFocus(nextIndex);
@@ -211,13 +217,13 @@ namespace LKGMenu
             base.OnPrevious();
 
             // If there are no controls, nothing to do
-            if ((controls == null) || (controls.Length < 1)) { return; }
+            if ((controls == null) || (controls.Count < 1)) { return; }
 
             // Calculate next index
             int nextIndex = currentIndex - 1;
 
             // Check for loop
-            if (nextIndex == -1) { nextIndex = controls.Length - 1; }
+            if (nextIndex == -1) { nextIndex = controls.Count - 1; }
 
             // Go!
             SetFocus(nextIndex);
@@ -252,7 +258,7 @@ namespace LKGMenu
         /// <summary>
         /// Gets or sets the list of child controls.
         /// </summary>
-        public UIControl[] Controls
+        public List<UIControl> Controls
         {
             get => controls;
             set

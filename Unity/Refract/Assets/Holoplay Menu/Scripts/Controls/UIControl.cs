@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace LKGMenu
+namespace LookingGlass.Menu
 {
     /// <summary>
     /// Base class for a UI control.
@@ -11,7 +11,7 @@ namespace LKGMenu
         private bool hasCapture;
         private bool hasFocus;
 
-        
+
         #endregion // Member Variables
 
         #region Overrides / Event Handlers

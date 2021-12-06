@@ -1,12 +1,9 @@
 using LookingGlass;
-using Microsoft.MixedReality.Toolkit.UI;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
-namespace LKGMenu
+namespace LookingGlass.Menu
 {
     /// <summary>
     /// Routes input to one or more <see cref="UIControl"/>s.
@@ -31,11 +28,6 @@ namespace LKGMenu
         [SerializeField]
         [Tooltip("The Looking Glass button that will perform the 'Previous' command.")]
         private HardwareButton previousButton = HardwareButton.Back;
-
-        [Header("Controls")]
-        [SerializeField]
-        [Tooltip("The control that will initially have focus.")]
-        private UIControl initialControl;
         #endregion // Unity Inspector Variables
 
         #region Internal Methods
@@ -80,18 +72,6 @@ namespace LKGMenu
         /// <inheritdoc/>
         protected virtual void Start()
         {
-            // If an initial control wasn't provided, try and find one
-            if (initialControl == null)
-            {
-                initialControl = GetComponent<UIControl>();
-            }
-
-            // Do we have an initial control to start with?
-            if (initialControl != null)
-            {
-                // Yes, assign it
-                CurrentControl = initialControl;
-            }
         }
 
         /// <inheritdoc/>
@@ -187,11 +167,6 @@ namespace LKGMenu
                 SetCurrentControl(value);
             }
         }
-
-        /// <summary>
-        /// Gets or sets the initial <see cref="UIControl"/> that will receive focus.
-        /// </summary>
-        public UIControl InitialControl { get => initialControl; set => initialControl = value; }
         #endregion // Public Properties
 
         #region Public Events
