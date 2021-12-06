@@ -1,5 +1,20 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &646636454616838366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3894245597632699830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ce2670100e915e4dafa0c5c683c1668, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holoController: {fileID: 0}
+  menuController: {fileID: 10580426706292401}
+  showSceneInMenu: 0
 --- !u!1001 &6033183082155612084
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7,6 +22,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6025740279488616709, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
+      propertyPath: showOnStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7255194932771700544, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7327655322796853762, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
       propertyPath: m_Name
       value: Main Menu
@@ -57,3 +80,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
+--- !u!1 &3894245597632699830 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7327655322796853762, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
+  m_PrefabInstance: {fileID: 6033183082155612084}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &10580426706292401 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6025740279488616709, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
+  m_PrefabInstance: {fileID: 6033183082155612084}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3894245597632699830}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b38fe492d392e6409d50ca9895b3396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

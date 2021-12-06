@@ -271,6 +271,10 @@ PrefabInstance:
       propertyPath: showOnStart
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 646636454616838366, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+      propertyPath: holoController
+      value: 
+      objectReference: {fileID: 1239773365}
     - target: {fileID: 3201021420407585700, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: m_Text
       value: Refract
@@ -281,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3894245597632699831, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3894245597632699831, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -373,7 +377,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1239773365
 MonoBehaviour:

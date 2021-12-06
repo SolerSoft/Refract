@@ -70,12 +70,12 @@ namespace LookingGlass.Menu
         /// <inheritdoc/>
         protected override void Start()
         {
+            // Create our events
+            if (Hidden == null) { Hidden = new UnityEvent(); }
+            if (Shown == null) { Shown = new UnityEvent(); }
+
             // Pass to base first
             base.Start();
-
-            // Create our events
-            Hidden = new UnityEvent();
-            Shown = new UnityEvent();
 
             // Update controls
             SyncControls();

@@ -139,6 +139,11 @@ namespace Refract
                 focus = Mathf.Clamp(value, FOCUS_MIN, FOCUS_MAX);
             }
         }
+
+        /// <summary>
+        /// Gets or sets the displaced and colored virtual scene projector.
+        /// </summary>
+        public MeshRenderer Projector { get => projector; set => projector = value; }
         #endregion // Public Properties
     }
 }

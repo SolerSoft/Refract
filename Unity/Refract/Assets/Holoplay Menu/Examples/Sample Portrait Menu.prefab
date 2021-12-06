@@ -164,6 +164,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1855557224307452417}
     m_Modifications:
+    - target: {fileID: 4673975804471017563, guid: 6f81476540badb14e8847dbe25c0041e, type: 3}
+      propertyPath: VoiceCommand
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 4705609620469448227, guid: 6f81476540badb14e8847dbe25c0041e, type: 3}
       propertyPath: m_Name
       value: Toggle
@@ -335,6 +339,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6025740279488616709, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
+      propertyPath: showOnStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7255194932771700544, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7327655322796853762, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
       propertyPath: m_Name
       value: Sample Portrait Menu
