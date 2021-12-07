@@ -43,6 +43,18 @@ namespace Refract
         private PinchSlider depthinessSlider;
 
         [SerializeField]
+        [Tooltip("The slider that adjusts the focus of the projector.")]
+        private PinchSlider focusSlider;
+
+        [SerializeField]
+        [Tooltip("The slider that adjusts the tessellation of the projector.")]
+        private PinchSlider tessellationSlider;
+
+        [SerializeField]
+        [Tooltip("The slider that adjusts the interpolation of the Holoplay capture.")]
+        private PinchSlider interpolationSlider;
+
+        [SerializeField]
         [Tooltip("The control that displays the frame rate.")]
         private TextMesh fpsText;
 
@@ -122,6 +134,9 @@ namespace Refract
 
             // Unsubscribe from control events
             depthinessSlider.OnValueUpdated.RemoveListener(Depthiness_SliderChanged);
+            focusSlider.OnValueUpdated.RemoveListener(Focus_SliderChanged);
+            interpolationSlider.OnValueUpdated.RemoveListener(Interpolation_SliderChanged);
+            tessellationSlider.OnValueUpdated.RemoveListener(Tessellation_SliderChanged);
 
             // Make sure the scene is visible again
             holoController.Projector.gameObject.SetActive(true);
@@ -137,6 +152,9 @@ namespace Refract
 
             // Subscribe to control events
             depthinessSlider.OnValueUpdated.AddListener(Depthiness_SliderChanged);
+            focusSlider.OnValueUpdated.AddListener(Focus_SliderChanged);
+            interpolationSlider.OnValueUpdated.AddListener(Interpolation_SliderChanged);
+            tessellationSlider.OnValueUpdated.AddListener(Tessellation_SliderChanged);
 
             // Hide the scene while the menu is open?
             if (!showSceneInMenu)
@@ -157,6 +175,39 @@ namespace Refract
         private void Depthiness_SliderChanged(SliderEventData data)
         {
             holoController.Depthiness = PercentToRange(HoloController.DEPTHINESS_MIN, HoloController.DEPTHINESS_MAX, data.NewValue);
+        }
+
+        /// <summary>
+        /// Called when the value of the Focus slider has changed.
+        /// </summary>
+        /// <param name="data">
+        /// Event data from the slider.
+        /// </param>
+        private void Focus_SliderChanged(SliderEventData data)
+        {
+            holoController.Focus = PercentToRange(HoloController.FOCUS_MIN, HoloController.FOCUS_MAX, data.NewValue);
+        }
+
+        /// <summary>
+        /// Called when the value of the Interpolation slider has changed.
+        /// </summary>
+        /// <param name="data">
+        /// Event data from the slider.
+        /// </param>
+        private void Interpolation_SliderChanged(SliderEventData data)
+        {
+            // holoController.Focus = PercentToRange(HoloController.FOCUS_MIN, HoloController.FOCUS_MAX, data.NewValue);
+        }
+
+        /// <summary>
+        /// Called when the value of the Tessellation slider has changed.
+        /// </summary>
+        /// <param name="data">
+        /// Event data from the slider.
+        /// </param>
+        private void Tessellation_SliderChanged(SliderEventData data)
+        {
+            // holoController.Focus = PercentToRange(HoloController.FOCUS_MIN, HoloController.FOCUS_MAX, data.NewValue);
         }
         #endregion // Overrides / Event Handlers
 
@@ -199,9 +250,13 @@ namespace Refract
         /// <summary>
         /// Causes Refract to exit.
         /// </summary>
-        public void Exit()
+        public void Quit()
         {
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #else
             Application.Quit();
+            #endif
         }
         #endregion // Public Methods
 

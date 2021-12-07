@@ -1,0 +1,2 @@
+Menu.png based on 'menu' by Three Six Five
+Quit.png based on 'Exit' by Rediffusion

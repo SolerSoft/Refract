@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1f37e0019a5eeb4da618e2436c25e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interactable: {fileID: 0}
+  interactable: {fileID: 2485673464017753835}
   changeAmount: 0.1
   slider: {fileID: 619189711780655723}
 --- !u!1001 &7921878726755843915
