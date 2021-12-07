@@ -259,7 +259,7 @@ QualitySettings:
     customRenderPipeline: {fileID: 0}
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:
-    Android: 2
+    Android: 6
     Lumin: 5
     Nintendo 3DS: 5
     Nintendo Switch: 5
@@ -267,7 +267,7 @@ QualitySettings:
     PSP2: 2
     Stadia: 5
     Standalone: 6
-    WebGL: 3
+    WebGL: 6
     Windows Store Apps: 6
     XboxOne: 5
     iPhone: 2
