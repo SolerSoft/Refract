@@ -264,10 +264,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 10580426706292401, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
-      propertyPath: title
-      value: Refract
-      objectReference: {fileID: 0}
-    - target: {fileID: 10580426706292401, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: showOnStart
       value: 1
       objectReference: {fileID: 0}
@@ -281,7 +277,7 @@ PrefabInstance:
       objectReference: {fileID: 1239773365}
     - target: {fileID: 3201021420407585700, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: m_Text
-      value: Refract
+      value: Title
       objectReference: {fileID: 0}
     - target: {fileID: 3894245597632699830, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: m_Name
@@ -435,7 +431,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1920960471
 MonoBehaviour:
   m_ObjectHideFlags: 0
