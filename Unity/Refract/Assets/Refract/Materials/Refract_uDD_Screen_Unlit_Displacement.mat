@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: uDD_Screen_Unlit_Displacement
+  m_Name: Refract_uDD_Screen_Unlit_Displacement
   m_Shader: {fileID: 4800000, guid: 7c818c56660cfe343b6f67ad53b7329e, type: 3}
   m_ShaderKeywords: INVERT_Y USE_CLIP _CULL_OFF _FORWARD_Z
   m_LightmapFlags: 5
@@ -39,7 +39,6 @@ Material:
     - _Displacement: 0.3
     - _Forward: 1
     - _InsideTessFactor: 1
-    - _Mask: 0.1
     - _Radius: 15.4
     - _TessDistFactor: 3
     - _TessDistPower: 1.545

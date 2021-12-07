@@ -243,7 +243,7 @@ MonoBehaviour:
   nextButton: 4
   previousButton: 5
   menuRoot: {fileID: 6019005499834540367}
-  showOnStart: 1
+  showOnStart: 0
   controlCollection: {fileID: 2844940502811890215}
   menuButton: {fileID: 292706568070409356}
   titleControl: {fileID: 5259659897197818399}
@@ -271,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4440366945555894816
 Transform:
   m_ObjectHideFlags: 0

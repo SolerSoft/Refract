@@ -200,7 +200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
       propertyPath: far clip plane
-      value: 55.721733
+      value: 61.721733
       objectReference: {fileID: 0}
     - target: {fileID: 20959260662082832, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
       propertyPath: near clip plane
@@ -223,12 +223,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
-      propertyPath: centerOffset
-      value: 0.742
-      objectReference: {fileID: 0}
-    - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
       propertyPath: farClipFactor
-      value: 3
+      value: 4.2
       objectReference: {fileID: 0}
     - target: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
       propertyPath: nearClipFactor
@@ -247,6 +243,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 10580426706292401, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+      propertyPath: showOnStart
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 646636454616838366, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: holoPlay
       value: 
@@ -301,6 +301,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3894245597632699831, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3969234048258812148, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6372405652395495297, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}

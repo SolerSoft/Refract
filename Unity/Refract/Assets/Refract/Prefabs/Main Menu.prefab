@@ -1119,10 +1119,6 @@ PrefabInstance:
       propertyPath: subtitle
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6025740279488616709, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
-      propertyPath: showOnStart
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7255194932771700544, guid: d2049f5e92ddf834bac4cdc42d6680a7, type: 3}
       propertyPath: m_IsActive
       value: 1

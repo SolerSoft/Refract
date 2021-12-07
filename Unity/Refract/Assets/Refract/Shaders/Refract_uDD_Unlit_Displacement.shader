@@ -28,7 +28,7 @@ Cull [_Cull]
 
 CGINCLUDE
 
-#include "../../uDesktopDuplication/Shaders/uDD_Common.cginc"
+#include "Packages/com.hecomi.udesktopduplication/Runtime/Shaders/uDD_Common.cginc"
 #include "Tessellation.cginc"
 
 Texture2D _DispTex;

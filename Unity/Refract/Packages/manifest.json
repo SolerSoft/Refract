@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.hecomi.udesktopduplication": "https://github.com/hecomi/uDesktopDuplication.git#upm",
     "com.microsoft.mixedreality.toolkit.foundation": "file:MixedReality/com.microsoft.mixedreality.toolkit.foundation-2.7.2.tgz",
     "com.microsoft.mixedreality.toolkit.standardassets": "file:MixedReality/com.microsoft.mixedreality.toolkit.standardassets-2.7.2.tgz",
     "com.unity.collab-proxy": "1.11.2",
