@@ -33,6 +33,10 @@ namespace Refract
         private Holoplay holoPlay;
 
         [SerializeField]
+        [Tooltip("The camera dedicated to the menu when in shared rendering mode.")]
+        private Camera menuCamera;
+
+        [SerializeField]
         [Tooltip("The MenuController that controls the main menu.")]
         private MenuController menuController;
 
@@ -121,6 +125,36 @@ namespace Refract
             // Sliders
             depthinessSlider.SliderValue = RangeToPercent(HoloController.DEPTHINESS_MIN, HoloController.DEPTHINESS_MAX, holoController.Depthiness);
         }
+
+        /// <summary>
+        /// Updates shared scene mode where the scene and the menu render at the same time.
+        /// </summary>
+        private void UpdateSharedScene()
+        {
+            // Are we enabling sharing?
+            if (showSceneInMenu)
+            {
+                // Make sure the projector is on
+                holoController.Projector.gameObject.SetActive(true);
+
+                // Turn menu camera on
+                menuCamera.enabled = true;
+
+                // Exclude UI in holo camera
+                holoPlay.cullingMask &= ~(1 << LayerMask.NameToLayer("UI"));
+            }
+            else
+            {
+                // The state of the projector is the opposite of the menu
+                holoController.Projector.gameObject.SetActive(!isShown);
+
+                // Turn menu camera off
+                menuCamera.enabled = false;
+
+                // Include UI in holo camera
+                holoPlay.cullingMask |= 1 << LayerMask.NameToLayer("UI");
+            }
+        }
         #endregion // Internal Methods
 
         #region Overrides / Event Handlers
@@ -138,8 +172,8 @@ namespace Refract
             interpolationSlider.OnValueUpdated.RemoveListener(Interpolation_SliderChanged);
             tessellationSlider.OnValueUpdated.RemoveListener(Tessellation_SliderChanged);
 
-            // Make sure the scene is visible again
-            holoController.Projector.gameObject.SetActive(true);
+            // No longer sharing
+            UpdateSharedScene();
         }
 
         /// <summary>
@@ -156,14 +190,11 @@ namespace Refract
             interpolationSlider.OnValueUpdated.AddListener(Interpolation_SliderChanged);
             tessellationSlider.OnValueUpdated.AddListener(Tessellation_SliderChanged);
 
-            // Hide the scene while the menu is open?
-            if (!showSceneInMenu)
-            {
-                holoController.Projector.gameObject.SetActive(false);
-            }
-
             // Shown
             isShown = true;
+
+            // Show the scene while menu is open?
+            UpdateSharedScene();
         }
 
         /// <summary>
@@ -272,8 +303,8 @@ namespace Refract
                 // Store
                 showSceneInMenu = value;
 
-                // Show or hide
-                holoController.Projector.gameObject.SetActive(showSceneInMenu);
+                // Update shared scene
+                UpdateSharedScene();
             }
         }
         #endregion // Public Properties
