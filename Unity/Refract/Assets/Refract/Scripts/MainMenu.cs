@@ -75,55 +75,15 @@ namespace Refract
 
         #region Internal Methods
         /// <summary>
-        /// Converts a percentage to a range value.
-        /// </summary>
-        /// <param name="min">
-        /// The minimum value in a range.
-        /// </param>
-        /// <param name="max">
-        /// The maximum value in a range.
-        /// </param>
-        /// <param name="percent">
-        /// The percentage to convert.
-        /// </param>
-        /// <returns>
-        /// The ranged value.
-        /// </returns>
-        static private float PercentToRange(float min, float max, float percent)
-        {
-            float r = (max - min);
-            return (r * percent) + min;
-        }
-
-        /// <summary>
-        /// Converts a ranged value to a percentage
-        /// </summary>
-        /// <param name="min">
-        /// The minimum value in a range.
-        /// </param>
-        /// <param name="max">
-        /// The maximum value in a range.
-        /// </param>
-        /// <param name="range">
-        /// The ranged value to convert.
-        /// </param>
-        /// <returns>
-        /// The percentage.
-        /// </returns>
-        static private float RangeToPercent(float min, float max, float range)
-        {
-            float r = (max - min);
-            float mr = range + min;
-            return mr / r;
-        }
-
-        /// <summary>
         /// Sets the menu controls to match the scene.
         /// </summary>
         private void SceneToControls()
         {
             // Sliders
-            depthinessSlider.SliderValue = RangeToPercent(HoloController.DEPTHINESS_MIN, HoloController.DEPTHINESS_MAX, holoController.Depthiness);
+            depthinessSlider.SliderValue = holoController.Depthiness;
+            focusSlider.SliderValue = holoController.Focus;
+            // TODO: tessellationSlider.SliderValue = holoController.?
+            // TODO: interpolationSlider.SliderValue = holoController.?
         }
 
         /// <summary>
@@ -205,7 +165,7 @@ namespace Refract
         /// </param>
         private void Depthiness_SliderChanged(SliderEventData data)
         {
-            holoController.Depthiness = PercentToRange(HoloController.DEPTHINESS_MIN, HoloController.DEPTHINESS_MAX, data.NewValue);
+            holoController.Depthiness = data.NewValue;
         }
 
         /// <summary>
@@ -216,7 +176,7 @@ namespace Refract
         /// </param>
         private void Focus_SliderChanged(SliderEventData data)
         {
-            holoController.Focus = PercentToRange(HoloController.FOCUS_MIN, HoloController.FOCUS_MAX, data.NewValue);
+            holoController.Focus = data.NewValue;
         }
 
         /// <summary>
@@ -227,7 +187,7 @@ namespace Refract
         /// </param>
         private void Interpolation_SliderChanged(SliderEventData data)
         {
-            // holoController.Focus = PercentToRange(HoloController.FOCUS_MIN, HoloController.FOCUS_MAX, data.NewValue);
+            // TODO: holoController.? = data.NewValue;
         }
 
         /// <summary>
@@ -238,7 +198,7 @@ namespace Refract
         /// </param>
         private void Tessellation_SliderChanged(SliderEventData data)
         {
-            // holoController.Focus = PercentToRange(HoloController.FOCUS_MIN, HoloController.FOCUS_MAX, data.NewValue);
+            // TODO: holoController.? = data.NewValue;
         }
         #endregion // Overrides / Event Handlers
 

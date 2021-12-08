@@ -247,6 +247,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 10580426706292401, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+      propertyPath: showOnStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 646636454616838366, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: holoPlay
       value: 
@@ -307,6 +311,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3969234048258812148, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372405652395495297, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
 --- !u!114 &1015572679 stripped
@@ -332,7 +344,7 @@ GameObject:
   - component: {fileID: 1239773363}
   - component: {fileID: 1239773365}
   m_Layer: 0
-  m_Name: Scene Controller
+  m_Name: Scene Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -378,8 +390,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313a8118abfa42b45b87d9e7af2aad27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  depthiness: 6
-  focus: 0
+  depthiness: 0.5
+  focus: 0.5
   projector: {fileID: 1920960473}
 --- !u!114 &1920960471 stripped
 MonoBehaviour:

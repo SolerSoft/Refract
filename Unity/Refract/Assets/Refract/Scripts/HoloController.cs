@@ -10,30 +10,32 @@ namespace Refract
     public class HoloController : MonoBehaviour
     {
         #region Constants
-        public const float DEPTHINESS_DEFAULT = 10.0f;
-        public const float DEPTHINESS_MAX = 20.0f;
-        public const float DEPTHINESS_MIN = 0.0f;
-        public const float FOCUS_DEFAULT = 0;
-        public const float FOCUS_MAX = 10;
-        public const float FOCUS_MIN = -10;
+        private const float DEPTHINESS_DEFAULT = 10.0f;
+        private const float DEPTHINESS_MAX = 20.0f;
+        private const float DEPTHINESS_MIN = 0.0f;
+        private const float FOCUS_DEFAULT = 0.5f;
+        private const float FOCUS_MAX = 10;
+        private const float FOCUS_MIN = -10;
         #endregion // Constants
 
         #region Member Variables
-        private float last_deptiness = float.NaN;
-        private float last_focus = float.NaN;
+        private float lastDepthiness = float.NaN;
+        private float lastFocus = float.NaN;
         private Material projectorMaterial;
+        private float renderDepthiness = DEPTHINESS_DEFAULT;
+        private float renderFocus = FOCUS_DEFAULT;
         #endregion // Member Variables
 
         #region Unity Inspector Variables
         [SerializeField]
         [Tooltip("How much displacement is caused by the depth map.")]
-        [Range(DEPTHINESS_MIN, DEPTHINESS_MAX)]
-        private float depthiness = DEPTHINESS_DEFAULT;
+        [Range(0, 1)]
+        private float depthiness = 0.5f;
 
         [SerializeField]
         [Tooltip("Which part of the projector is currently focused. Zero is middle.")]
-        [Range(FOCUS_MIN, FOCUS_MAX)]
-        private float focus = FOCUS_DEFAULT;
+        [Range(0, 1)]
+        private float focus = 0.5f;
 
         [SerializeField]
         [Tooltip("The displaced and colored virtual scene projector.")]
@@ -42,15 +44,61 @@ namespace Refract
 
         #region Internal Methods
         /// <summary>
+        /// Converts a percentage to a range value.
+        /// </summary>
+        /// <param name="min">
+        /// The minimum value in a range.
+        /// </param>
+        /// <param name="max">
+        /// The maximum value in a range.
+        /// </param>
+        /// <param name="percent">
+        /// The percentage to convert.
+        /// </param>
+        /// <returns>
+        /// The ranged value.
+        /// </returns>
+        static private float PercentToRange(float min, float max, float percent)
+        {
+            float r = (max - min);
+            return (r * percent) + min;
+        }
+
+        /// <summary>
+        /// Converts a ranged value to a percentage
+        /// </summary>
+        /// <param name="min">
+        /// The minimum value in a range.
+        /// </param>
+        /// <param name="max">
+        /// The maximum value in a range.
+        /// </param>
+        /// <param name="range">
+        /// The ranged value to convert.
+        /// </param>
+        /// <returns>
+        /// The percentage.
+        /// </returns>
+        static private float RangeToPercent(float min, float max, float range)
+        {
+            float r = (max - min);
+            float mr = range + min;
+            return mr / r;
+        }
+
+        /// <summary>
         /// Applies the current depthiness.
         /// </summary>
         private void ApplyDepthiness()
         {
             // Save as last updated
-            last_deptiness = depthiness;
+            lastDepthiness = depthiness;
+
+            // Convert to render value
+            renderDepthiness = PercentToRange(DEPTHINESS_MIN, DEPTHINESS_MAX, depthiness);
 
             // Update the displacement shader
-            projectorMaterial.SetFloat("_DispFactor", depthiness);
+            projectorMaterial.SetFloat("_DispFactor", renderDepthiness);
 
             // Move projector
             ApplyProjectorPosition();
@@ -62,7 +110,10 @@ namespace Refract
         private void ApplyFocus()
         {
             // Save as last updated
-            last_focus = focus;
+            lastFocus = focus;
+
+            // Convert to render value
+            renderFocus = PercentToRange(HoloController.FOCUS_MIN, HoloController.FOCUS_MAX, focus);
 
             // Move projector
             ApplyProjectorPosition();
@@ -76,8 +127,8 @@ namespace Refract
             // Get the current position
             Vector3 pos = projector.transform.position;
 
-            // Update z based on depthiness and focus
-            pos.z = (depthiness / 2f) + focus;
+            // Update z based on render depthiness and focus
+            pos.z = (renderDepthiness / 2f) + renderFocus;
 
             // Move the projector
             projector.transform.position = pos;
@@ -110,8 +161,8 @@ namespace Refract
         /// </summary>
         protected virtual void Update()
         {
-            if (depthiness != last_deptiness) { ApplyDepthiness(); }
-            if (focus != last_focus) { ApplyFocus(); }
+            if (depthiness != lastDepthiness) { ApplyDepthiness(); }
+            if (focus != lastFocus) { ApplyFocus(); }
         }
         #endregion // Unity Overrides
 
@@ -124,7 +175,7 @@ namespace Refract
             get => depthiness;
             set
             {
-                depthiness = Mathf.Clamp(value, DEPTHINESS_MIN, DEPTHINESS_MAX);
+                depthiness = Mathf.Clamp(value, 0.0f, 1.0f);
             }
         }
 
@@ -136,7 +187,7 @@ namespace Refract
             get => focus;
             set
             {
-                focus = Mathf.Clamp(value, FOCUS_MIN, FOCUS_MAX);
+                focus = Mathf.Clamp(value, 0.0f, 1.0f);
             }
         }
 
