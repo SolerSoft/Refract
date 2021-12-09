@@ -1799,6 +1799,10 @@ PrefabInstance:
       propertyPath: VoiceCommand
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8328277551643244771, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
+      propertyPath: changeAmount
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5ae79d5f0a3c9d741b36e89c2e9e0a9f, type: 3}
 --- !u!4 &6589254311876806011 stripped

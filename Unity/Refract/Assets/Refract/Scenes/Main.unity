@@ -390,10 +390,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313a8118abfa42b45b87d9e7af2aad27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holoplay: {fileID: 1015572679}
   projector: {fileID: 1920960473}
   depthiness: 0.5
   focus: 0.5
   tessellation: 0.5
+  interpolation: 0
 --- !u!114 &1920960471 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4662916698750623691, guid: 5776f44d5bfcb3747a4564173afb94c9, type: 3}

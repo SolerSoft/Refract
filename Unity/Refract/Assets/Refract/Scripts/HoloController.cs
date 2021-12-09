@@ -1,6 +1,8 @@
+using LookingGlass;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using ViewInterpolationType = LookingGlass.Holoplay.ViewInterpolationType;
 
 namespace Refract
 {
@@ -19,20 +21,29 @@ namespace Refract
         private const float TESSELLATION_DEFAULT = 15.0f;
         private const float TESSELLATION_MAX = 30f;
         private const float TESSELLATION_MIN = 0.0f;
+        private const ViewInterpolationType INTERPOLATION_DEFAULT = ViewInterpolationType.None;
+        private const float INTERPOLATION_MAX = 5.0f;
+        private const float INTERPOLATION_MIN = 0.0f;
         #endregion // Constants
 
         #region Member Variables
         private float lastDepthiness = float.NaN;
         private float lastFocus = float.NaN;
+        private float lastInterpolation = float.NaN;
         private float lastTessellation = float.NaN;
         private Material projectorMaterial;
         private float renderDepthiness = DEPTHINESS_DEFAULT;
         private float renderFocus = FOCUS_DEFAULT;
+        private ViewInterpolationType renderInterpolation = INTERPOLATION_DEFAULT;
         private float renderTessellation = TESSELLATION_DEFAULT;
         #endregion // Member Variables
 
         #region Unity Inspector Variables
         [Header("Controllers")]
+        [SerializeField]
+        [Tooltip("The Holoplay object that controls Looking Glass rendering.")]
+        private Holoplay holoplay;
+
         [SerializeField]
         [Tooltip("The displaced and colored virtual scene projector.")]
         private MeshRenderer projector;
@@ -52,6 +63,11 @@ namespace Refract
         [Tooltip("The amount of tessellation (detail) used by the shader.")]
         [Range(0, 1)]
         private float tessellation = 0.5f;
+
+        [SerializeField]
+        [Tooltip("The amount of interpolation used by Holoplay. This percentage gets converted to an enum internally.")]
+        [Range(0, 1)]
+        private float interpolation = 0;
         #endregion // Unity Inspector Variables
 
         #region Internal Methods
@@ -132,6 +148,22 @@ namespace Refract
         }
 
         /// <summary>
+        /// Applies the current interpolation.
+        /// </summary>
+        private void ApplyInterpolation()
+        {
+            // Save as last updated
+            lastInterpolation = interpolation;
+
+            // Convert to render value
+            int renderInt = Mathf.RoundToInt(interpolation * (INTERPOLATION_MAX - INTERPOLATION_MIN));
+            renderInterpolation = (ViewInterpolationType)renderInt;
+
+            // Update Holoplay
+            holoplay.viewInterpolation = renderInterpolation;
+        }
+
+        /// <summary>
         /// Applies the projector position based on depthiness and focus.
         /// </summary>
         private void ApplyProjectorPosition()
@@ -194,6 +226,7 @@ namespace Refract
             if (depthiness != lastDepthiness) { ApplyDepthiness(); }
             if (focus != lastFocus) { ApplyFocus(); }
             if (tessellation != lastTessellation) { ApplyTessellation(); }
+            if (interpolation != lastInterpolation) { ApplyInterpolation(); }
         }
         #endregion // Unity Overrides
 
@@ -223,8 +256,32 @@ namespace Refract
         }
 
         /// <summary>
-        /// Gets or sets the amount of tessellation (detail) used by the shader.
+        /// Gets or sets which the amount of interpolation used by Holoplay.
         /// </summary>
+        /// <remarks>
+        /// Interpolation determines how many camera angles are estimated rather than fully calculated as Holoplay
+        /// generates frames for the Looking Glass. The default value of 0 produces the highest quality picture
+        /// possible, but is very demanding on the GPU. This slider will cause a dramatic boost in FPS, but it will
+        /// also cause a dramatic decrease in picture quality.
+        /// </remarks>
+        /// <seealso href="https://docs.lookingglassfactory.com/developer-tools/unity/scripts/holoplay#viewinterpolation"/>
+        public float Interpolation
+        {
+            get => interpolation;
+            set
+            {
+                interpolation = Mathf.Clamp(value, 0.0f, 1.0f);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the amount of tessellation used by the shader.
+        /// </summary>
+        /// <remarks>
+        /// Tessellation determines the number of 3D points that are generated from the depth map. Higher tessellation
+        /// values represent curves more accurately, but at the cost of performance. The default value of 0.5 should
+        /// work well for medium to high-end gaming PCs.
+        /// </remarks>
         public float Tessellation
         {
             get => tessellation;

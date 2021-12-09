@@ -83,7 +83,7 @@ namespace Refract
             depthinessSlider.SliderValue = holoController.Depthiness;
             focusSlider.SliderValue = holoController.Focus;
             tessellationSlider.SliderValue = holoController.Tessellation;
-            // TODO: interpolationSlider.SliderValue = holoController.?
+            interpolationSlider.SliderValue = holoController.Interpolation;
         }
 
         /// <summary>
@@ -187,7 +187,7 @@ namespace Refract
         /// </param>
         private void Interpolation_SliderChanged(SliderEventData data)
         {
-            // TODO: holoController.? = data.NewValue;
+            holoController.Interpolation = data.NewValue;
         }
 
         /// <summary>
