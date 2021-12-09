@@ -13,33 +13,45 @@ namespace Refract
         private const float DEPTHINESS_DEFAULT = 10.0f;
         private const float DEPTHINESS_MAX = 20.0f;
         private const float DEPTHINESS_MIN = 0.0f;
-        private const float FOCUS_DEFAULT = 0.5f;
+        private const float FOCUS_DEFAULT = 5f;
         private const float FOCUS_MAX = 10;
         private const float FOCUS_MIN = -10;
+        private const float TESSELLATION_DEFAULT = 15.0f;
+        private const float TESSELLATION_MAX = 30f;
+        private const float TESSELLATION_MIN = 0.0f;
         #endregion // Constants
 
         #region Member Variables
         private float lastDepthiness = float.NaN;
         private float lastFocus = float.NaN;
+        private float lastTessellation = float.NaN;
         private Material projectorMaterial;
         private float renderDepthiness = DEPTHINESS_DEFAULT;
         private float renderFocus = FOCUS_DEFAULT;
+        private float renderTessellation = TESSELLATION_DEFAULT;
         #endregion // Member Variables
 
         #region Unity Inspector Variables
+        [Header("Controllers")]
+        [SerializeField]
+        [Tooltip("The displaced and colored virtual scene projector.")]
+        private MeshRenderer projector;
+
+        [Header("Scene Settings")]
         [SerializeField]
         [Tooltip("How much displacement is caused by the depth map.")]
         [Range(0, 1)]
         private float depthiness = 0.5f;
 
         [SerializeField]
-        [Tooltip("Which part of the projector is currently focused. Zero is middle.")]
+        [Tooltip("Which part of the projector is currently focused. 0.5 is middle.")]
         [Range(0, 1)]
         private float focus = 0.5f;
 
         [SerializeField]
-        [Tooltip("The displaced and colored virtual scene projector.")]
-        private MeshRenderer projector;
+        [Tooltip("The amount of tessellation (detail) used by the shader.")]
+        [Range(0, 1)]
+        private float tessellation = 0.5f;
         #endregion // Unity Inspector Variables
 
         #region Internal Methods
@@ -97,7 +109,7 @@ namespace Refract
             // Convert to render value
             renderDepthiness = PercentToRange(DEPTHINESS_MIN, DEPTHINESS_MAX, depthiness);
 
-            // Update the displacement shader
+            // Update the displacement shader displacement factor
             projectorMaterial.SetFloat("_DispFactor", renderDepthiness);
 
             // Move projector
@@ -133,6 +145,24 @@ namespace Refract
             // Move the projector
             projector.transform.position = pos;
         }
+
+        /// <summary>
+        /// Applies the current tessellation.
+        /// </summary>
+        private void ApplyTessellation()
+        {
+            // Save as last updated
+            lastTessellation = tessellation;
+
+            // Convert to render value
+            renderTessellation = PercentToRange(TESSELLATION_MIN, TESSELLATION_MAX, tessellation);
+
+            // Make sure we don't actually go all the way down to zero since technically the shader doesn't support it
+            renderTessellation = Mathf.Clamp(renderTessellation, 0.1f, TESSELLATION_MAX);
+
+            // Update the displacement shader tessellation factor
+            projectorMaterial.SetFloat("_TessFactor", renderTessellation);
+        }
         #endregion // Internal Methods
 
         #region Unity Overrides
@@ -163,6 +193,7 @@ namespace Refract
         {
             if (depthiness != lastDepthiness) { ApplyDepthiness(); }
             if (focus != lastFocus) { ApplyFocus(); }
+            if (tessellation != lastTessellation) { ApplyTessellation(); }
         }
         #endregion // Unity Overrides
 
@@ -180,7 +211,7 @@ namespace Refract
         }
 
         /// <summary>
-        /// Gets or sets which part of the projector is currently focused. Zero is middle.
+        /// Gets or sets which part of the projector is currently focused. 0.5 is middle.
         /// </summary>
         public float Focus
         {
@@ -188,6 +219,18 @@ namespace Refract
             set
             {
                 focus = Mathf.Clamp(value, 0.0f, 1.0f);
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the amount of tessellation (detail) used by the shader.
+        /// </summary>
+        public float Tessellation
+        {
+            get => tessellation;
+            set
+            {
+                tessellation = Mathf.Clamp(value, 0.0f, 1.0f);
             }
         }
 

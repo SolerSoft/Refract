@@ -249,7 +249,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 10580426706292401, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: showOnStart
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 646636454616838366, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: holoPlay
@@ -313,7 +313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3969234048258812148, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6372405652395495297, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: m_Mesh
@@ -390,9 +390,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 313a8118abfa42b45b87d9e7af2aad27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projector: {fileID: 1920960473}
   depthiness: 0.5
   focus: 0.5
-  projector: {fileID: 1920960473}
+  tessellation: 0.5
 --- !u!114 &1920960471 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4662916698750623691, guid: 5776f44d5bfcb3747a4564173afb94c9, type: 3}
