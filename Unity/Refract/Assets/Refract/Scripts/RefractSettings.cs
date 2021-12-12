@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace Refract
 {
+    /// <summary>
+    /// The settings that will be saved to disk and reloaded between application runs.
+    /// </summary>
     [Serializable]
     public class RefractSettings
     {
-        private bool showSceneInMenu;
-        private float depthiness = 0.5f;
-        private float focus = 0.5f;
-        private float tessellation = 0.5f;
-        private float interpolation = 0;
+        public float Depthiness;
+        public float Focus;
+        public float Interpolation;
+        public bool ShowSceneInMenu;
+        public float Tessellation;
     }
 }

@@ -1,5 +1,6 @@
 using LookingGlass;
 using LookingGlass.Menu;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -300,6 +301,9 @@ namespace Refract
 
             // Get the projector material
             projectorMaterial = projector.sharedMaterial;
+
+            // Attempt to load settings
+            LoadSettings();
         }
 
         /// <summary>
@@ -316,15 +320,71 @@ namespace Refract
 
         #region Public Methods
         /// <summary>
+        /// Loads application settings from disk.
+        /// </summary>
+        public void LoadSettings()
+        {
+            try
+            {
+                // Attempt to load settings from disk
+                var settings = DataStore.LoadObject<RefractSettings>(nameof(RefractSettings));
+
+                // If loaded, apply
+                if (settings != null)
+                {
+                    this.Depthiness = settings.Depthiness;
+                    this.Focus = settings.Focus;
+                    this.Interpolation = settings.Interpolation;
+                    this.ShowSceneInMenu = settings.ShowSceneInMenu;
+                    this.Tessellation = settings.Tessellation;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Could not load settings: {ex.Message}.");
+            }
+        }
+
+        /// <summary>
         /// Causes Refract to exit.
         /// </summary>
         public void Quit()
         {
+            // Save settings
+            SaveSettings();
+
+            // Exit the app
             #if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
             #else
             Application.Quit();
             #endif
+        }
+
+        /// <summary>
+        /// Saves application settings to disk.
+        /// </summary>
+        public void SaveSettings()
+        {
+            try
+            {
+                // Copy to settings object
+                var settings = new RefractSettings()
+                {
+                    Depthiness = this.depthiness,
+                    Focus = this.focus,
+                    Interpolation = this.interpolation,
+                    ShowSceneInMenu = this.showSceneInMenu,
+                    Tessellation = this.tessellation,
+                };
+
+                // Save settings object to disk
+                DataStore.SaveObject(settings, nameof(RefractSettings));
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Could not save settings: {ex.Message}.");
+            }
         }
         #endregion // Public Methods
 
