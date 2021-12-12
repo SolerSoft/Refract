@@ -136,6 +136,28 @@ namespace Refract
         }
 
         /// <summary>
+        /// Rounds and clamps the specified value.
+        /// </summary>
+        /// <param name="value">
+        /// The value to round and clamp.
+        /// </param>
+        /// <param name="min">
+        /// The minimum value allowed.
+        /// </param>
+        /// <param name="max">
+        /// The maximum value allowed.
+        /// </param>
+        /// <returns>
+        /// The rounded and clamped value.
+        /// </returns>
+        static private float RoundClamp(float value, float min, float max)
+        {
+            value = Mathf.Clamp(value, min, max);
+            value = (float)Math.Round(value, 2);
+            return value;
+        }
+
+        /// <summary>
         /// Applies the current depthiness.
         /// </summary>
         private void ApplyDepthiness()
@@ -397,7 +419,7 @@ namespace Refract
             get => depthiness;
             set
             {
-                depthiness = Mathf.Clamp(value, 0.0f, 1.0f);
+                depthiness = RoundClamp(value, 0.0f, 1.0f);
             }
         }
 
@@ -409,7 +431,7 @@ namespace Refract
             get => focus;
             set
             {
-                focus = Mathf.Clamp(value, 0.0f, 1.0f);
+                focus = RoundClamp(value, 0.0f, 1.0f);
             }
         }
 
@@ -428,7 +450,7 @@ namespace Refract
             get => interpolation;
             set
             {
-                interpolation = Mathf.Clamp(value, 0.0f, 1.0f);
+                interpolation = RoundClamp(value, 0.0f, 1.0f);
             }
         }
 
@@ -445,7 +467,7 @@ namespace Refract
             get => tessellation;
             set
             {
-                tessellation = Mathf.Clamp(value, 0.0f, 1.0f);
+                tessellation = RoundClamp(value, 0.0f, 1.0f);
             }
         }
 
