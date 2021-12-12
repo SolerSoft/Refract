@@ -18,23 +18,14 @@ namespace Refract
         #endregion // Constants
 
         #region Member Variables
-        private bool isShown;
         private float lastFPSUpdate;
         #endregion // Member Variables
 
         #region Unity Inspector Variables
         [Header("Controllers")]
         [SerializeField]
-        [Tooltip("The HoloController that adjusts settings in the projector.")]
-        private HoloController holoController;
-
-        [SerializeField]
-        [Tooltip("The HoloPlay object that controls the display.")]
-        private Holoplay holoPlay;
-
-        [SerializeField]
-        [Tooltip("The camera dedicated to the menu when in shared rendering mode.")]
-        private Camera menuCamera;
+        [Tooltip("The main controller for the application.")]
+        private RefractController appController;
 
         [SerializeField]
         [Tooltip("The MenuController that controls the main menu.")]
@@ -42,6 +33,10 @@ namespace Refract
 
 
         [Header("Controls")]
+        [SerializeField]
+        [Tooltip("The slider that adjusts the depthiness of the projector.")]
+        private Interactable showSceneInMenuBox;
+
         [SerializeField]
         [Tooltip("The slider that adjusts the depthiness of the projector.")]
         private PinchSlider depthinessSlider;
@@ -65,12 +60,6 @@ namespace Refract
         [SerializeField]
         [Tooltip("The control that displays the version.")]
         private TextMesh versionText;
-
-
-        [Header("Settings")]
-        [SerializeField]
-        [Tooltip("Whether to show the running scene while the menu is open.")]
-        private bool showSceneInMenu;
         #endregion // Unity Inspector Variables
 
         #region Internal Methods
@@ -79,41 +68,14 @@ namespace Refract
         /// </summary>
         private void SceneToControls()
         {
+            // Check boxes
+            showSceneInMenuBox.IsToggled = appController.ShowSceneInMenu;
+
             // Sliders
-            depthinessSlider.SliderValue = holoController.Depthiness;
-            focusSlider.SliderValue = holoController.Focus;
-            tessellationSlider.SliderValue = holoController.Tessellation;
-            interpolationSlider.SliderValue = holoController.Interpolation;
-        }
-
-        /// <summary>
-        /// Updates shared scene mode where the scene and the menu render at the same time.
-        /// </summary>
-        private void UpdateSharedScene()
-        {
-            // Are we enabling sharing?
-            if (showSceneInMenu)
-            {
-                // Make sure the projector is on
-                holoController.Projector.gameObject.SetActive(true);
-
-                // Turn menu camera on
-                menuCamera.enabled = true;
-
-                // Exclude UI in holo camera
-                holoPlay.cullingMask &= ~(1 << LayerMask.NameToLayer("UI"));
-            }
-            else
-            {
-                // The state of the projector is the opposite of the menu
-                holoController.Projector.gameObject.SetActive(!isShown);
-
-                // Turn menu camera off
-                menuCamera.enabled = false;
-
-                // Include UI in holo camera
-                holoPlay.cullingMask |= 1 << LayerMask.NameToLayer("UI");
-            }
+            depthinessSlider.SliderValue = appController.Depthiness;
+            focusSlider.SliderValue = appController.Focus;
+            tessellationSlider.SliderValue = appController.Tessellation;
+            interpolationSlider.SliderValue = appController.Interpolation;
         }
         #endregion // Internal Methods
 
@@ -123,17 +85,14 @@ namespace Refract
         /// </summary>
         private void MainMenu_Hidden()
         {
-            // No longer shown
-            isShown = false;
+            // Unsubscribe from check box events
+            showSceneInMenuBox.OnClick.RemoveListener(ShowSceneInMenuBox_Toggled);
 
-            // Unsubscribe from control events
+            // Unsubscribe from slider events
             depthinessSlider.OnValueUpdated.RemoveListener(Depthiness_SliderChanged);
             focusSlider.OnValueUpdated.RemoveListener(Focus_SliderChanged);
             interpolationSlider.OnValueUpdated.RemoveListener(Interpolation_SliderChanged);
             tessellationSlider.OnValueUpdated.RemoveListener(Tessellation_SliderChanged);
-
-            // No longer sharing
-            UpdateSharedScene();
         }
 
         /// <summary>
@@ -144,17 +103,14 @@ namespace Refract
             // Load controls
             SceneToControls();
 
-            // Subscribe to control events
+            // Subscribe to check box events
+            showSceneInMenuBox.OnClick.AddListener(ShowSceneInMenuBox_Toggled);
+
+            // Subscribe to slider events
             depthinessSlider.OnValueUpdated.AddListener(Depthiness_SliderChanged);
             focusSlider.OnValueUpdated.AddListener(Focus_SliderChanged);
             interpolationSlider.OnValueUpdated.AddListener(Interpolation_SliderChanged);
             tessellationSlider.OnValueUpdated.AddListener(Tessellation_SliderChanged);
-
-            // Shown
-            isShown = true;
-
-            // Show the scene while menu is open?
-            UpdateSharedScene();
         }
 
         /// <summary>
@@ -165,7 +121,7 @@ namespace Refract
         /// </param>
         private void Depthiness_SliderChanged(SliderEventData data)
         {
-            holoController.Depthiness = data.NewValue;
+            appController.Depthiness = data.NewValue;
         }
 
         /// <summary>
@@ -176,7 +132,7 @@ namespace Refract
         /// </param>
         private void Focus_SliderChanged(SliderEventData data)
         {
-            holoController.Focus = data.NewValue;
+            appController.Focus = data.NewValue;
         }
 
         /// <summary>
@@ -187,7 +143,7 @@ namespace Refract
         /// </param>
         private void Interpolation_SliderChanged(SliderEventData data)
         {
-            holoController.Interpolation = data.NewValue;
+            appController.Interpolation = data.NewValue;
         }
 
         /// <summary>
@@ -198,7 +154,15 @@ namespace Refract
         /// </param>
         private void Tessellation_SliderChanged(SliderEventData data)
         {
-            holoController.Tessellation = data.NewValue;
+            appController.Tessellation = data.NewValue;
+        }
+
+        /// <summary>
+        /// Called when the ShowSceneInMenu box is checked or unchecked.
+        /// </summary>
+        private void ShowSceneInMenuBox_Toggled()
+        {
+            appController.ShowSceneInMenu = showSceneInMenuBox.IsToggled;
         }
         #endregion // Overrides / Event Handlers
 
@@ -228,7 +192,7 @@ namespace Refract
         /// <inheritdoc/>
         protected virtual void Update()
         {
-            if ((isShown) && (fpsText != null) && ((Time.unscaledTime - lastFPSUpdate) > FPS_UPDATE_RATE))
+            if ((menuController.IsShown) && (fpsText != null) && ((Time.unscaledTime - lastFPSUpdate) > FPS_UPDATE_RATE))
             {
                 lastFPSUpdate = Time.unscaledTime;
                 int fps = (int)(1f / Time.unscaledDeltaTime);
@@ -236,37 +200,5 @@ namespace Refract
             }
         }
         #endregion // Unity Overrides
-
-        #region Public Methods
-        /// <summary>
-        /// Causes Refract to exit.
-        /// </summary>
-        public void Quit()
-        {
-            #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-            #else
-            Application.Quit();
-            #endif
-        }
-        #endregion // Public Methods
-
-        #region Public Properties
-        /// <summary>
-        /// Gets or sets whether to show the running scene while the menu is open.
-        /// </summary>
-        public bool ShowSceneInMenu
-        {
-            get => showSceneInMenu;
-            set
-            {
-                // Store
-                showSceneInMenu = value;
-
-                // Update shared scene
-                UpdateSharedScene();
-            }
-        }
-        #endregion // Public Properties
     }
 }

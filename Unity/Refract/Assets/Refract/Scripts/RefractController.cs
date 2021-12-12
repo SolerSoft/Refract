@@ -1,4 +1,5 @@
 using LookingGlass;
+using LookingGlass.Menu;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,9 +8,9 @@ using ViewInterpolationType = LookingGlass.Holoplay.ViewInterpolationType;
 namespace Refract
 {
     /// <summary>
-    /// Controls aspects of the holographic display.
+    /// Main controller for the Refract application.
     /// </summary>
-    public class HoloController : MonoBehaviour
+    public class RefractController : MonoBehaviour
     {
         #region Constants
         private const float DEPTHINESS_DEFAULT = 10.0f;
@@ -48,6 +49,19 @@ namespace Refract
         [Tooltip("The displaced and colored virtual scene projector.")]
         private MeshRenderer projector;
 
+        [SerializeField]
+        [Tooltip("The camera dedicated to the menu when in shared rendering mode.")]
+        private Camera menuCamera;
+
+        [SerializeField]
+        [Tooltip("The MenuController that controls the main menu.")]
+        private MenuController menuController;
+
+        [SerializeField]
+        [Tooltip("The HoloPlay object that controls the display.")]
+        private Holoplay holoPlay;
+
+
         [Header("Scene Settings")]
         [SerializeField]
         [Tooltip("How much displacement is caused by the depth map.")]
@@ -68,6 +82,12 @@ namespace Refract
         [Tooltip("The amount of interpolation used by Holoplay. This percentage gets converted to an enum internally.")]
         [Range(0, 1)]
         private float interpolation = 0;
+
+
+        [Header("UX")]
+        [SerializeField]
+        [Tooltip("Whether to show the running scene while the menu is open.")]
+        private bool showSceneInMenu;
         #endregion // Unity Inspector Variables
 
         #region Internal Methods
@@ -141,7 +161,7 @@ namespace Refract
             lastFocus = focus;
 
             // Convert to render value
-            renderFocus = PercentToRange(HoloController.FOCUS_MIN, HoloController.FOCUS_MAX, focus);
+            renderFocus = PercentToRange(RefractController.FOCUS_MIN, RefractController.FOCUS_MAX, focus);
 
             // Move projector
             ApplyProjectorPosition();
@@ -195,9 +215,73 @@ namespace Refract
             // Update the displacement shader tessellation factor
             projectorMaterial.SetFloat("_TessFactor", renderTessellation);
         }
+
+        /// <summary>
+        /// Updates shared scene mode where the scene and the menu render at the same time.
+        /// </summary>
+        private void UpdateSharedScene()
+        {
+            // Are we enabling sharing?
+            if (showSceneInMenu)
+            {
+                // Make sure the projector is on
+                projector.gameObject.SetActive(true);
+
+                // Turn menu camera on
+                menuCamera.enabled = true;
+
+                // Exclude UI in holo camera
+                holoPlay.cullingMask &= ~(1 << LayerMask.NameToLayer("UI"));
+            }
+            else
+            {
+                // The state of the projector is the opposite of the menu
+                projector.gameObject.SetActive(!menuController.IsShown);
+
+                // Turn menu camera off
+                menuCamera.enabled = false;
+
+                // Include UI in holo camera
+                holoPlay.cullingMask |= 1 << LayerMask.NameToLayer("UI");
+            }
+        }
         #endregion // Internal Methods
 
+        #region Overrides / Event Handlers
+        /// <summary>
+        /// Occurs when the menu is hidden.
+        /// </summary>
+        private void MainMenu_Hidden()
+        {
+            // No longer sharing
+            UpdateSharedScene();
+        }
+
+        /// <summary>
+        /// Occurs when the menu is shown.
+        /// </summary>
+        private void MainMenu_Shown()
+        {
+            // Show the scene while menu is open?
+            UpdateSharedScene();
+        }
+        #endregion // Overrides / Event Handlers
+
         #region Unity Overrides
+        /// <inheritdoc/>
+        protected virtual void OnDisable()
+        {
+            menuController.Hidden.RemoveListener(MainMenu_Hidden);
+            menuController.Shown.RemoveListener(MainMenu_Shown);
+        }
+
+        /// <inheritdoc/>
+        protected virtual void OnEnable()
+        {
+            menuController.Hidden.AddListener(MainMenu_Hidden);
+            menuController.Shown.AddListener(MainMenu_Shown);
+        }
+
         /// <summary>
         /// Called when the behavior begins.
         /// </summary>
@@ -206,7 +290,7 @@ namespace Refract
             // Make sure we have a projector
             if (projector == null)
             {
-                Debug.LogError($"{nameof(HoloController)} - projector isn't set.");
+                Debug.LogError($"{nameof(RefractController)} - projector isn't set.");
                 enabled = false;
                 return;
             }
@@ -229,6 +313,20 @@ namespace Refract
             if (interpolation != lastInterpolation) { ApplyInterpolation(); }
         }
         #endregion // Unity Overrides
+
+        #region Public Methods
+        /// <summary>
+        /// Causes Refract to exit.
+        /// </summary>
+        public void Quit()
+        {
+            #if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+            #else
+            Application.Quit();
+            #endif
+        }
+        #endregion // Public Methods
 
         #region Public Properties
         /// <summary>
@@ -295,6 +393,22 @@ namespace Refract
         /// Gets or sets the displaced and colored virtual scene projector.
         /// </summary>
         public MeshRenderer Projector { get => projector; set => projector = value; }
+
+        /// <summary>
+        /// Gets or sets whether to show the running scene while the menu is open.
+        /// </summary>
+        public bool ShowSceneInMenu
+        {
+            get => showSceneInMenu;
+            set
+            {
+                // Store
+                showSceneInMenu = value;
+
+                // Update shared scene
+                UpdateSharedScene();
+            }
+        }
         #endregion // Public Properties
     }
 }

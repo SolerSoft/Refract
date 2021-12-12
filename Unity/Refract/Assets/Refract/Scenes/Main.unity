@@ -260,9 +260,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1922573617}
     - target: {fileID: 646636454616838366, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
-      propertyPath: holoController
+      propertyPath: appController
       value: 
       objectReference: {fileID: 1239773365}
+    - target: {fileID: 646636454616838366, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+      propertyPath: holoController
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3894245597632699830, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: m_Name
       value: Main Menu
@@ -315,12 +319,35 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4552116268525531308, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1239773365}
+    - target: {fileID: 4552116268525531308, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Quit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4552116268525531308, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+      propertyPath: OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Refract.RefractController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 6372405652395495297, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+--- !u!114 &1007229774 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 10580426706292401, guid: 5d81aaf4739f03e41af7c3faf9d6dfbc, type: 3}
+  m_PrefabInstance: {fileID: 1007229773}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b38fe492d392e6409d50ca9895b3396, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1015572679 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114865344359803568, guid: 3019d4eebe2593e428d7b9ccb096ceda, type: 3}
@@ -392,10 +419,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   holoplay: {fileID: 1015572679}
   projector: {fileID: 1920960473}
+  menuCamera: {fileID: 1922573617}
+  menuController: {fileID: 1007229774}
+  holoPlay: {fileID: 1015572679}
   depthiness: 0.5
   focus: 0.5
   tessellation: 0.5
   interpolation: 0
+  showSceneInMenu: 0
 --- !u!114 &1920960471 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4662916698750623691, guid: 5776f44d5bfcb3747a4564173afb94c9, type: 3}

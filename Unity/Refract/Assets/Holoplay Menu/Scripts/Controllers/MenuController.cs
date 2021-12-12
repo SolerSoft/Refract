@@ -14,6 +14,10 @@ namespace LookingGlass.Menu
     /// </summary>
     public class MenuController : UIController
     {
+        #region Member Variables
+        private bool isShown;
+        #endregion // Member Variables
+
         #region Unity Inspector Variables
         [Header("Menu")]
         [SerializeField]
@@ -165,6 +169,9 @@ namespace LookingGlass.Menu
             // Show menu
             if (menuRoot != null) { menuRoot.SetActive(false); }
 
+            // Update state
+            isShown = false;
+
             // Notify
             Hidden.Invoke();
         }
@@ -180,6 +187,9 @@ namespace LookingGlass.Menu
             // Show menu
             if (menuRoot != null) { menuRoot.SetActive(true); }
 
+            // Update state
+            isShown = true;
+
             // Notify
             Shown.Invoke();
         }
@@ -190,6 +200,11 @@ namespace LookingGlass.Menu
         /// Gets or sets the collection of controls displayed in the menu.
         /// </summary>
         public ControlCollection ControlCollection { get => controlCollection; set => controlCollection = value; }
+
+        /// <summary>
+        /// Gets a value that indicates if the menu is currently shown.
+        /// </summary>
+        public bool IsShown { get => isShown; }
 
         /// <summary>
         /// Gets or sets the <see cref="UIControl"/> that represents the menu button.
