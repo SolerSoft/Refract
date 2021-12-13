@@ -157,7 +157,7 @@ namespace Refract
         static private float RoundClamp(float value, float min, float max)
         {
             value = Mathf.Clamp(value, min, max);
-            value = (float)Math.Round(value, 2);
+            value = (float)Math.Round(value, 3);
             return value;
         }
 
