@@ -4,7 +4,7 @@ Refract is real-time hologram streaming tool for [Looking Glass Portrait](https:
 [![](Images/VideoPreview.png)](https://youtu.be/YKgHC-UgFOY)
 [Watch the video](https://youtu.be/YKgHC-UgFOY)
 
-## How does it work?
+## How Does it Work?
 Once installed, [ReGlass][ReGlass] draws your game with color on one side and depth on the other. 
 
 <img src="Images/RGSamp01.png" width=400> &nbsp; &nbsp; <img src="Images/RGSamp02.png" width=400>
@@ -49,9 +49,13 @@ Wikipedia defines [refraction](https://en.wikipedia.org/wiki/Refraction) as "the
 
 I usually release open source software under my personal github ([jbienz][jbienz]), but since **Refract** includes binary executables I wanted to be a little more careful. SolerSoft is a LLC I created years ago exactly for this purpose. Still, note that none of my open source projects include any kind of warranty. Use at your own risk. ;)
 
-## About the author
+## About the Author
+Jared Bienz
 <img src="Images/JBienz.jpg" width=200>
+[<img src="Images/LILogo.png" width=24> jbienz](https://www.linkedin.com/in/jbienz) &nbsp; [<img src="Images/WebLogo.png" width=24> Road to MR](https://www.roadtomr.com) &nbsp; [<img src="Images/WebLogo.png" width=24> Blog](https://jared.bienz.com) &nbsp; [<img src="Images/TwitLogo.png" width=24> @jbienz](https://twitter.com/jbienz)
+
 I'm not always online, but my user name is **eXntrc** on the [Looking Glass Discord](https://discord.com/invite/lookingglassfactory).
+
 
 <sub>**No Express or Implied Warranty.** This software is provided "as is", with all faults. There are no warranties or guarantees, express or implied.</sub>
 
