@@ -61,7 +61,7 @@ static public class ExtendedInput
     #region Imported Functions
     #if EXTENDED_INPUT_WINDOWS
     [DllImport("User32.dll")]
-    static private extern short GetAsyncKeyState(int vKey);
+    static private extern short GetKeyState(int vKey);
     #endif // EXTENDED_INPUT_WINDOWS
     #endregion // Imported Functions
 
@@ -131,8 +131,8 @@ static public class ExtendedInput
     static public bool GetKey(int keyCode)
     {
         #if EXTENDED_INPUT_WINDOWS
-        byte[] result = System.BitConverter.GetBytes(GetAsyncKeyState((int)keyCode));
-        if (result[0] == 1) { return true; }
+        byte[] result = System.BitConverter.GetBytes(GetKeyState((int)keyCode));
+        if (result[0] > 1) { return true; }
         #endif // EXTENDED_INPUT_WINDOWS
 
         // TODO: How do we handle this on Mac and other platforms?

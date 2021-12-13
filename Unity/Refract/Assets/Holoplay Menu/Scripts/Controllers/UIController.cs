@@ -10,9 +10,15 @@ namespace LookingGlass.Menu
     /// </summary>
     public class UIController : MonoBehaviour
     {
+        #region Constants
+        private const float REPEAT_INTERVAL = 0.25f;
+        #endregion // Constants
+
         #region Member Variables
         private Stack<UIControl> controlStack = new Stack<UIControl>();
         private UIControl currentControl;
+        private float nextActivated;
+        private float previousActivated;
         #endregion // Member Variables
 
         #region Unity Inspector Variables
@@ -31,6 +37,47 @@ namespace LookingGlass.Menu
         #endregion // Unity Inspector Variables
 
         #region Internal Methods
+        /// <summary>
+        /// Check to see if a button is pressed or repeating.
+        /// </summary>
+        /// <param name="button">
+        /// The button to check.
+        /// </param>
+        /// <param name="lastActivated">
+        /// The time the button was last activated.
+        /// </param>
+        /// <param name="isRepeat">
+        /// Whether the button is considered "pressed" because of a repeat.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the button was pressed or repeating; otherwise <c>false</c>.
+        /// </returns>
+        private bool IsPressedOrRepeating(HardwareButton button, ref float lastActivated, out bool isRepeat)
+        {
+            // Get real-time since app start
+            float timeNow = Time.realtimeSinceStartup;
+
+            // First, check for just pressed
+            if (InputManager.GetButtonDown(button))
+            {
+                lastActivated = timeNow;
+                isRepeat = false;
+                return true;
+            }
+
+            // Next, check for held and passing repeat delta
+            if ((InputManager.GetButton(button)) && (timeNow > (lastActivated + REPEAT_INTERVAL)))
+            {
+                lastActivated = timeNow;
+                isRepeat = true;
+                return true;
+            }
+
+            // Not pressed or repeating
+            isRepeat = false;
+            return false;
+        }
+
         /// <summary>
         /// Sets the current control to the specified control.
         /// </summary>
@@ -83,14 +130,17 @@ namespace LookingGlass.Menu
         /// <inheritdoc/>
         protected virtual void Update()
         {
+            // Placeholder to check for repeats
+            bool isRepeat = false;
+
             // Check keys and buttons
-            if (InputManager.GetButtonDown(nextButton))
+            if (IsPressedOrRepeating(nextButton, ref nextActivated, out isRepeat))
             {
-                Next();
+                Next(isRepeat);
             }
-            else if (InputManager.GetButtonDown(previousButton))
+            else if (IsPressedOrRepeating(previousButton, ref previousActivated, out isRepeat))
             {
-                Previous();
+                Previous(isRepeat);
             }
             else if (InputManager.GetButtonDown(activateButton))
             {
@@ -139,7 +189,10 @@ namespace LookingGlass.Menu
         /// <summary>
         /// Performs the 'Next' command.
         /// </summary>
-        public virtual void Next()
+        /// <param name="isRepeat">
+        /// <c>true</c> if the action is a repeat; otherwise <c>false</c>.
+        /// </param>
+        public virtual void Next(bool isRepeat)
         {
             // Validate
             if (currentControl == null) throw new InvalidOperationException($"{nameof(CurrentControl)} is currently null.");
@@ -151,7 +204,10 @@ namespace LookingGlass.Menu
         /// <summary>
         /// Performs the 'Previous' command.
         /// </summary>
-        public virtual void Previous()
+        /// <param name="isRepeat">
+        /// <c>true</c> if the action is a repeat; otherwise <c>false</c>.
+        /// </param>
+        public virtual void Previous(bool isRepeat)
         {
             // Validate
             if (currentControl == null) throw new InvalidOperationException($"{nameof(CurrentControl)} is currently null.");

@@ -148,15 +148,14 @@ namespace LookingGlass.Menu
         /// <inheritdoc/>
         public override void Activate()
         {
-            // Make sure the menu root visible or pass it on?
-            if ((menuRoot != null) && (!menuRoot.activeSelf))
+            // If not shown, show it
+            if (!isShown)
             {
-                // Show the menu
                 Show();
             }
+            // Otherwise, pass on to base class to decide
             else
             {
-                // Pass on to base
                 base.Activate();
             }
         }
