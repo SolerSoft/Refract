@@ -1,5 +1,5 @@
 # Refract
-Refract is real-time hologram streaming tool for [Looking Glass Portrait](https://lookingglassfactory.com/portrait). Combined with [ReGlass][ReGlass], Refract allows you to play more than 500 commercial games as holograms on your Portrait.
+**Refract** is a real-time holographic streaming toolkit for [Looking Glass Portrait](https://lookingglassfactory.com/portrait). When combined with [ReGlass][ReGlass], **Refract** allows you to play more than 500 commercial games as holograms on your Portrait.
 
 [![](Images/VideoPreview.png)](https://youtu.be/YKgHC-UgFOY)
 [Watch the video](https://youtu.be/YKgHC-UgFOY)
@@ -9,9 +9,9 @@ Once installed, [ReGlass][ReGlass] draws your game with color on one side and de
 
 <img src="Images/RGSamp01.png" width=400> &nbsp; &nbsp; <img src="Images/RGSamp02.png" width=400>
 
-This works great for screenshots and video capture, but it doesn't allow you to *play* the game on your Portrait. That's where Refract comes in.
+This works great for screenshots and video captures, but it doesn't allow you to actually *play* the game on your Portrait. That's where **Refract** comes in.
 
-Refract uses the color and depth information coming from ReGlass to **dynamically generate** a holographic scene with multiple camera angles. The holographic scene is then rendered on the Portrait in real-time.  
+Refract uses the color and depth information coming from ReGlass to *dynamically generate* a holographic scene with multiple camera angles. The holographic scene is then rendered on the Portrait in real-time.  
 
 ## System Requirements
 As you can imagine, Refract works best on high-end systems. Refract is essentially running two games at the same time, but I have done what I can to support as many systems as possible. Several settings can be adjusted, and I've included a whole section below on improving performance.
@@ -32,7 +32,7 @@ Going down from there, you'll likely need to turn on **Interpolation** (camera a
 1. Launch **Refract.exe** and Enjoy! 
 
 ## Configuration
-**Refract** includes a menu that runs *right on the Portrait!* To bring up the menu, press the Play/Pause button on the side of your portrait.
+Refract includes a menu that runs *right on the Portrait!* To bring up the menu, press the Play/Pause button on the side of your portrait.
 
 
 
