@@ -13,12 +13,8 @@ namespace Refract
     /// </summary>
     public class MainMenu : MonoBehaviour
     {
-        #region Constants
-        private float FPS_UPDATE_RATE = 0.5f;
-        #endregion // Constants
-
         #region Member Variables
-        private float lastFPSUpdate;
+        private float lastFPS = 0;
         #endregion // Member Variables
 
         #region Unity Inspector Variables
@@ -192,11 +188,10 @@ namespace Refract
         /// <inheritdoc/>
         protected virtual void Update()
         {
-            if ((menuController.IsShown) && (fpsText != null) && ((Time.unscaledTime - lastFPSUpdate) > FPS_UPDATE_RATE))
+            if ((menuController.IsShown) && (fpsText != null) && (lastFPS != appController.FPS))
             {
-                lastFPSUpdate = Time.unscaledTime;
-                int fps = (int)(1f / Time.unscaledDeltaTime);
-                fpsText.text = $"{fps} FPS";
+                lastFPS = appController.FPS;
+                fpsText.text = $"{lastFPS.ToString("f0")} FPS";
             }
         }
         #endregion // Unity Overrides

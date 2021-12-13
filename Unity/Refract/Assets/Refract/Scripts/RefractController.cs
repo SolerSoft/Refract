@@ -20,6 +20,7 @@ namespace Refract
         private const float FOCUS_DEFAULT = 5f;
         private const float FOCUS_MAX = 10;
         private const float FOCUS_MIN = -10;
+        private const float FPS_UPDATE_INTERVAL = 1.0f;
         private const float TESSELLATION_DEFAULT = 15.0f;
         private const float TESSELLATION_MAX = 30f;
         private const float TESSELLATION_MIN = 0.0f;
@@ -29,9 +30,12 @@ namespace Refract
         #endregion // Constants
 
         #region Member Variables
+        private float fps;
+        private int frameCount;
         private float lastDepthiness = float.NaN;
         private float lastFocus = float.NaN;
         private float lastInterpolation = float.NaN;
+        private double lastFPSUpdate;
         private float lastTessellation = float.NaN;
         private Material projectorMaterial;
         private float renderDepthiness = DEPTHINESS_DEFAULT;
@@ -318,8 +322,17 @@ namespace Refract
                 return;
             }
 
-            // Turn off V-Sync
+            // Set frame rate to as fast as standalone can render
             Application.targetFrameRate = -1;
+
+            // Turn off physics entirely (we don't need it)
+            Physics.autoSimulation = false;
+
+            // Turn off V-Sync
+            // QualitySettings.vSyncCount = 0;
+
+            // Turn on V-Sync
+            QualitySettings.vSyncCount = 1;
 
             // Get the projector material
             projectorMaterial = projector.sharedMaterial;
@@ -333,10 +346,30 @@ namespace Refract
         /// </summary>
         protected virtual void Update()
         {
+            // Increment the frame counter
+            ++frameCount;
+
+            // See if any settings need updating
             if (depthiness != lastDepthiness) { ApplyDepthiness(); }
             if (focus != lastFocus) { ApplyFocus(); }
             if (tessellation != lastTessellation) { ApplyTessellation(); }
             if (interpolation != lastInterpolation) { ApplyInterpolation(); }
+
+            // Get real-time since app start
+            float timeNow = Time.realtimeSinceStartup;
+
+            // Has the update window passed
+            if (timeNow > (lastFPSUpdate + FPS_UPDATE_INTERVAL))
+            {
+                // Calculate the new FPS
+                fps = (float)(frameCount / (timeNow - lastFPSUpdate));
+
+                // Reset the frame counter
+                frameCount = 0;
+
+                // Store time of last FPS update
+                lastFPSUpdate = timeNow;
+            }
         }
         #endregion // Unity Overrides
 
@@ -434,6 +467,11 @@ namespace Refract
                 focus = RoundClamp(value, 0.0f, 1.0f);
             }
         }
+
+        /// <summary>
+        /// Gets the application current Frames Per Second.
+        /// </summary>
+        public float FPS => fps;
 
         /// <summary>
         /// Gets or sets which the amount of interpolation used by Holoplay.
