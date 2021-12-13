@@ -50,7 +50,7 @@ Wikipedia defines [refraction](https://en.wikipedia.org/wiki/Refraction) as "the
 I usually release open source software under my personal github ([jbienz][jbienz]), but since **Refract** includes binary executables I wanted to be a little more careful. SolerSoft is a LLC I created years ago exactly for this purpose. Still, note that none of my open source projects include any kind of warranty. Use at your own risk. ;)
 
 ## About the Author
-Jared Bienz
+Jared Bienz<br/>
 <img src="Images/JBienz.jpg" width=200>
 [<img src="Images/LILogo.png" width=24>jbienz](https://www.linkedin.com/in/jbienz) &nbsp; [<img src="Images/WebLogo.png" width=24>Road to MR](https://www.roadtomr.com) &nbsp; [<img src="Images/WebLogo.png" width=24>Blog](https://jared.bienz.com) &nbsp; [<img src="Images/TwitLogo.png" width=24>@jbienz](https://twitter.com/jbienz)
 
