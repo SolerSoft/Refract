@@ -1,5 +1,5 @@
 # Refract
-**Refract** is a real-time holographic streaming toolkit for [Looking Glass Portrait](https://lookingglassfactory.com/portrait). When combined with [ReGlass][ReGlass], **Refract** allows you to play more than 500 commercial games as holograms on your Portrait.
+**Refract** provides real-time holographic streaming for [Looking Glass Portrait](https://lookingglassfactory.com/portrait). When combined with [ReGlass][ReGlass], **Refract** allows you to play more than 500 commercial games as moving holograms.
 
 [![](Images/VideoPreview.png)](https://youtu.be/YKgHC-UgFOY)
 [Watch the video](https://youtu.be/YKgHC-UgFOY)
@@ -18,9 +18,9 @@ As you can imagine, Refract works best on high-end systems. Refract is essential
 
 Here are some estimates:
 
-**Nvidia 3080** can run modern games like Cyberpunk at close to 60 FPS without sacrificing hologram quality. Though you'll want to turn off Ray Tracing and lower the resolution.
+- **Nvidia 3080** can run modern games like Cyberpunk at close to 60 FPS without sacrificing hologram quality. Though you'll want to turn off Ray Tracing and lower the resolution.
 
-**Nvidia 1080** can *probably* handle classic games like Portal 2 close to 60 FPS without sacrificing hologram quality.
+- **Nvidia 1080** can *probably* handle classic games like Portal 2 close to 60 FPS without sacrificing hologram quality.
 
 Going down from there, you'll likely need to turn on **Interpolation** (camera angle skipping) to achieve higher frame rates.       
 
