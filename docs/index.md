@@ -7,7 +7,7 @@
 ## How Does it Work?
 Once installed, [ReGlass][ReGlass] draws your game with color on one side and depth on the other. 
 
-<img src="Images/RGSamp01.png" width=400> &nbsp; &nbsp; <img src="Images/RGSamp02.png" width=400>
+<img src="Images/RGSamp01.png" width=460> &nbsp; &nbsp; <img src="Images/RGSamp02.png" width=460>
 
 This works great for screenshots and video captures, but it doesn't allow you to actually *play* games on your Portrait. That's where **Refract** comes in.
 
