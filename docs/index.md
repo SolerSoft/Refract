@@ -9,25 +9,23 @@ Once installed, [ReGlass][ReGlass] draws your game with color on one side and de
 
 <img src="Images/RGSamp01.png" width=400> &nbsp; &nbsp; <img src="Images/RGSamp02.png" width=400>
 
-This works great for screenshots and video captures, but it doesn't allow you to actually *play* the game on your Portrait. That's where **Refract** comes in.
+This works great for screenshots and video captures, but it doesn't allow you to actually *play* games on your Portrait. That's where **Refract** comes in.
 
-Refract uses the color and depth information coming from ReGlass to *dynamically generate* a holographic scene with multiple camera angles. The holographic scene is then rendered on the Portrait in real-time.  
+Refract uses the color and depth information from ReGlass to *dynamically generate* a holographic scene with multiple camera angles. The holographic scene is then rendered on the Portrait in real-time.  
 
 ## System Requirements
-As you can imagine, Refract works best on high-end systems. Refract is essentially running two games at the same time, but I have done what I can to support as many systems as possible. Several settings can be adjusted, and I've included a whole section below on improving performance.
+As you can imagine, Refract works best on high-end systems. Refract is essentially a second game running at the same time, but I have taken steps to support as many systems as possible. Several settings can be adjusted, and I've included a whole section on improving performance below.
 
 Here are some estimates:
 
 - **Nvidia 3080** can run modern games like Cyberpunk at close to 60 FPS without sacrificing hologram quality. Though you'll want to turn off Ray Tracing and lower the resolution.
 
-- **Nvidia 1080** can *probably* handle classic games like Portal 2 close to 60 FPS without sacrificing hologram quality.
-
-Going down from there, you'll likely need to turn on **Interpolation** (camera angle skipping) to achieve higher frame rates.       
+- **Nvidia 1080** can *probably* handle classic games like Portal 2 close to 60 FPS without sacrificing hologram quality.     
 
 ## Usage
 1. Download [ReGlass][ReGlass] and get it fully working with your game. Use the [ReGlass Game Settings][RGGameSettings] page for help with this process.
 1. Download the latest [Refract Archive](https://github.com/SolerSoft/Refract/releases/download/v1.1/Refract_1.0.zip) and unzip it.
-1. (Optional) create a shortcut to **Refract.exe** on your Start menu or task bar.
+1. (Optional) create a shortcut to **Refract.exe** on your Start Menu or Task Bar.
 1. Launch your game and enable **ReGlass**.
 1. Launch **Refract.exe** and Enjoy! 
 
@@ -36,12 +34,12 @@ Refract includes a menu that runs directly on the Portrait itself!
 
 <img src="Images/RefractMenu.png" width=500>
 
-To bring up the menu, press the hardware button on the bottom-right side of the Portrait.
+To bring up the menu, press the bottom hardware button on the side of the Portrait.
 
 <img src="Images/HardwareButtons.png" width=400>
 
 
-The button at the top-right of the menu is **Close Menu** button:
+The button at the top of the menu is the **Close Menu** button:
 
 <img src="Images/MenuButton.png" width=55>
 
@@ -49,7 +47,7 @@ This simply hides the menu so you can focus on your game.
 
 Next there's the **Show scene while in menu** check box. 
 
-Seeing the game while you're adjusting settings can be helpful, but sometimes it can also be distracting. This box shows or hides the game while you're in the menu.
+Seeing the game while you're adjusting settings can be helpful, but sometimes it can also be distracting. This shows or hides the game, but only while you're in the menu.
 
 Next we have four sliders:
 
@@ -65,7 +63,7 @@ And finally there's the Quit button:
 
 <img src="Images/QuitButton.png" width=150> 
 
-Activating this button saves your settings and shuts down Refract.
+This button saves your settings and shuts down Refract.
 
 ## Improving Performance
 By far the most important impact on performance is everything that happens *before* Refract gets involved. This means it's important to make sure your OS, the game itself and ReGlass are all highly optimized before starting Refract.
