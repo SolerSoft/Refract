@@ -25,15 +25,26 @@ Here are some estimates:
 Going down from there, you'll likely need to turn on **Interpolation** (camera angle skipping) to achieve higher frame rates.       
 
 ## Usage
-1. Download [ReGlass][ReGlass] and get it fully working with your game. Use the ReGlass [Game Settings][RGGameSettings] page for help with this process.
+1. Download [ReGlass][ReGlass] and get it fully working with your game. Use the [ReGlass Game Settings][RGGameSettings] page for help with this process.
 1. Download the latest [Refract Archive](https://github.com/SolerSoft/Refract/releases/download/v1.1/Refract_1.0.zip) and unzip it.
 1. (Optional) create a shortcut to **Refract.exe** on your Start menu or task bar.
 1. Launch your game and enable **ReGlass**.
 1. Launch **Refract.exe** and Enjoy! 
 
 ## Configuration
-Refract includes a menu that runs *right on the Portrait!* To bring up the menu, press the Play/Pause button on the side of your portrait.
+Refract includes a menu that runs directly on the Portrait itself!
 
+<img src="Images/RefractMenu.png" width=500>
+
+To bring up the menu, press the bottom button on the side of the Portrait.
+
+<img src="Images/MenuButtons.png" width=400>
+
+Here's what each settings does:
+
+- **Show scene while in menu:** Seeing the game while you're adjusting settings can be helpful, but it can also sometimes get in the way. This turns the game on or off while in the menu.
+- **Depthiness:** Controls how far the scene goes into the display or how far it pops out of it. While it may be tempting to crank this way up, keep in mind it can be hard on the eyes.
+- **Focus:** Like Holoplay, this slider controls how deep the scene goes into or pops out of the display. It may be tempting to crank this up, but keep in mind it can be hard on the eyes.
 
 
 ## Improving Performance
