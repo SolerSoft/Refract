@@ -55,7 +55,7 @@ Next we have four sliders:
 
 - **Depthiness:** This slider controls how deep the scene goes into the display and how far it pops out. While it may be tempting to crank this all the way up, doing so can be hard on the eyes.
  
-- **Focus:** Looking Glass displays have one [plane of depth](https://docs.lookingglassfactory.com/keyconcepts/how-it-works#the-zero-parallax-plane) that appears more sharp than others. This slider lets you control which depth plane has the focus. If too much of the scene appears out of focus, use the **Depthiness** slider to decrease overall depth and try again.
+- **Focus:** Looking Glass displays have one plane of depth that appears more sharp than others. This slider lets you control which depth plane is in focus. If too much of the scene appears out of focus, use the **Depthiness** slider to decrease overall depth and try again.
 
 - **Tessellation:** On each frame, Refract creates a 3D object to match the shape of your game world. This slider controls how much detail goes into that object. In general, this slider should be set as low as possible while still looking good. Setting this slider too high will result in "swimming" each time the object updates.
 
