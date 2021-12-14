@@ -30,20 +30,19 @@ Here are some rough estimates:
 1. Launch **Refract.exe** and Enjoy! 
 
 ## Configuration
-Refract includes a menu that runs directly on the Portrait itself!
-
-<img src="Images/RefractMenu.png" width=500>
-
-To bring up the menu, press the bottom hardware button on the side of the Portrait.
+Refract includes a menu that runs directly on the Portrait! To bring up the menu, press the bottom hardware button on the side of the Portrait.
 
 <img src="Images/HardwareButtons.png" width=400>
 
+While the menu is shown, the top hardware buttons navigate through on-screen controls. Pressing the bottom hardware button again allows you to interact with the selected control. 
 
-The button at the top of the menu is the **Close Menu** button:
+<img src="Images/RefractMenu.png" width=500>
+
+At the top of the menu is the **Close Menu** button:
 
 <img src="Images/MenuButton.png" width=55>
 
-This simply hides the menu so you can focus on your game.
+This button simply hides the menu so you can focus on your game.
 
 Next there's the '**Show scene while in menu**' check box. 
 
