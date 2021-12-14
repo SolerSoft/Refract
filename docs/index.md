@@ -34,7 +34,7 @@ Refract includes a menu that runs directly on the Portrait! To bring up the menu
 
 <img src="Images/HardwareButtons.png" width=400>
 
-While the menu is shown, the top hardware buttons navigate through on-screen controls. Pressing the bottom hardware button again allows you to interact with the selected control. 
+While the menu is open, the top buttons cycle through controls and the bottom button activates the current control. 
 
 <img src="Images/RefractMenu.png" width=500>
 
