@@ -57,9 +57,9 @@ Next we have four sliders:
  
 - **Focus:** Looking Glass displays have one plane of depth that appears more sharp than others. This slider lets you control which depth plane is in focus. If too much of the scene appears out of focus, use the **Depthiness** slider to decrease overall depth and try again.
 
-- **Tessellation:** On each frame, Refract creates a 3D object to match the shape of your game world. This slider controls how much detail goes into that object. In general, this slider should be set as low as possible while still looking good. Setting this slider too high will result in "swimming" each time the object updates.
+- **Tessellation:** On each frame, Refract creates a 3D object to match the shape of your game world. This slider controls how much detail goes into that object. In general, this slider should be set as low as possible while still looking good. Setting this slider too high will result in a "swimming" effect each time the object updates.
 
-- **Interpolation:** By default, Refract renders 48 camera angles of your game world. You can think of this slider as skipping camera angles then trying to guess what's missing in between. On fast machines this slider should be all the way to the left. Turning this slider up could significantly improve frame rate, but it could also significantly reduce picture quality.       
+- **Interpolation:** By default, Refract renders 48 camera angles of your game world. You can think of this slider as skipping some camera angles while trying to guess what's in between. On fast machines this slider should be all the way to the left. Turning this slider up could significantly improve frame rate, but it could also significantly reduce picture quality.       
 
 And finally there's the Quit button:
 
@@ -79,11 +79,11 @@ By far the most important impact on performance is everything that happens *befo
 ### Game Optimization
 
 1. Set the game to run at 1920 x 1080. While your machine may be capable of far more than that, we're trying to reserve capacity for Refract to run in the background. Also, since we'll be playing on an 8" display, higher resolutions will have diminishing returns. 
-1. Turn VSync and / or Frame Limiting **ON**. Your machine may be capable of 144 FPS but the Portrait is not. Rendering extra frames takes time that Refract could use to run.    
-1. If necessary, turn off advanced features like Ray Tracing. Remember: Though your game may be hitting 60 FPS, for Refract it's all about the capacity left over *between* those frames.   
+1. Turn VSync and / or Frame Limiting **ON**. Your machine may be capable of 144 FPS but the Portrait is not. Rendering extra frames takes time away that Refract could use to run.    
+1. If necessary, turn off advanced features like Ray Tracing. Remember: Though your game may be hitting 60 FPS, for Refract it's all about the extra capacity left over *between* those frames.   
 
 ### ReGlass Optimization
-The main optimization for ReGlass is to turn on [Performance Mode](https://jbienz.github.io/ReGlass#performance-mode) once everything's configured. This can easily free up 15 - 20 FPS that Refract can use.   
+The main optimization in ReGlass is to turn on [Performance Mode](https://jbienz.github.io/ReGlass#performance-mode) once everything's configured. This can easily free up 15 - 20 FPS that Refract can use.   
 
 ### Refract Optimization
 Everything above will have *far* more impact than what's listed here, but these options can help too:
@@ -98,7 +98,7 @@ Wikipedia defines [refraction](https://en.wikipedia.org/wiki/Refraction) as "the
 
 *Why is [ReGlass][ReGlass] associated with [jbienz][jbienz] but Refract associated with [SolerSoft][SolerSoft]?*
 
-I usually release open source software under my personal github ([jbienz][jbienz]), but since **Refract** includes binary executables I wanted to be a little more careful. SolerSoft is a LLC I created years ago exactly for this purpose. Still, note that none of my open source projects include any kind of warranty. Use at your own risk. ;)
+I usually release open source software under my personal github ([jbienz][jbienz]), but since **Refract** includes binary executables I wanted to be a little more careful. SolerSoft is a LLC I created years ago exactly for this purpose. Still, note that none of my open source projects include any kind of warranty. Use at your own risk! ;)
 
 ## About the Author
 Jared Bienz<br/>
