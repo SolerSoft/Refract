@@ -45,7 +45,7 @@ The button at the top of the menu is the **Close Menu** button:
 
 This simply hides the menu so you can focus on your game.
 
-Next there's the **Show scene while in menu** check box. 
+Next there's the '**Show scene while in menu**' check box. 
 
 Seeing the game while you're adjusting settings can be helpful, but sometimes it can also be distracting. This shows or hides the game, but only while you're in the menu.
 
@@ -57,7 +57,7 @@ Next we have four sliders:
 
 - **Tessellation:** On each frame, Refract creates a 3D object to match the shape of your game world. This slider controls how much detail goes into that object. In general, this slider should be set as low as possible while still looking good. Setting this slider too high will result in a "swimming" effect each time the object updates.
 
-- **Interpolation:** By default, Refract renders 48 camera angles of your game world. You can think of this slider as skipping some camera angles while trying to guess what's in between. On fast machines this slider should be all the way to the left. Turning this slider up could significantly improve frame rate, but it could also significantly reduce picture quality.       
+- **Interpolation:** By default, Refract renders 48 different camera angles for your game world. You can think of this slider as skipping some camera angles while trying to guess what's in between. On fast machines this slider should be all the way to the left. Turning this slider up could significantly improve frame rate, but it could also significantly reduce picture quality.       
 
 And finally there's the Quit button:
 
@@ -66,13 +66,13 @@ And finally there's the Quit button:
 This button saves your settings and shuts down Refract.
 
 ## Improving Performance
-By far the most important impact on performance is everything that happens *before* Refract gets involved. This means it's important to make sure your OS, the game itself and ReGlass are all highly optimized before starting Refract.
+By far the biggest impact on performance is everything that happens *before* Refract gets involved. Since Refract can only use resources that aren't already in use, it's very important to optimize your OS, the game and ReGlass before starting Refract. 
 
 ### OS Optimization
 
 1. I know this goes without saying, but do make sure you have the latest graphics driver installed.
 1. Set Windows Desktop to 1920 x 1080. Games that use "Fullscreen Windowed" might render at lower resolutions, but their output is then scaled to desktop resolution. High Desktop resolutions take *significantly* longer to capture, which reduces the total frame rate possible in Refract.
-1. Close extra programs running in the background or System Tray. These might consume CPU cycles that Refract could otherwise leverage.  
+1. Close extra programs running in the background or System Tray. These might consume CPU cycles that Refract could otherwise use.  
 
 ### Game Optimization
 
