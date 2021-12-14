@@ -40,7 +40,6 @@ To bring up the menu, press the hardware button on the bottom-right side of the 
 
 <img src="Images/HardwareButtons.png" width=400>
 
-Once the menu open, here's what each settings does:
 
 The button at the top-right of the menu is **Close Menu** button:
 
@@ -48,13 +47,18 @@ The button at the top-right of the menu is **Close Menu** button:
 
 This simply hides the menu so you can focus on your game.
 
-Next there's the **Show scene while in menu** check box. Seeing the game while you're adjusting settings can be helpful, but sometimes it can also be distracting. This box shows or hides the game while you're in the menu.
+Next there's the **Show scene while in menu** check box. 
 
-Now we have four sliders:
+Seeing the game while you're adjusting settings can be helpful, but sometimes it can also be distracting. This box shows or hides the game while you're in the menu.
+
+Next we have four sliders:
 
 - **Depthiness:** This slider controls how deep the scene goes into the display and how far it pops out. While it may be tempting to crank this all the way up, doing so can be hard on the eyes.
+ 
 - **Focus:** Looking Glass displays have one [plane of depth](https://docs.lookingglassfactory.com/keyconcepts/how-it-works#the-zero-parallax-plane) that appears more sharp than others. This slider lets you control which depth plane has the focus. If too much of the scene appears out of focus, use the **Depthiness** slider to decrease overall depth and try again.
+
 - **Tessellation:** On each frame, Refract creates a 3D object to match the shape of your game world. This slider controls how much detail goes into that object. In general, this slider should be set as low as possible while still looking good. Setting this slider too high will result in "swimming" each time the object updates.
+
 - **Interpolation:** By default, Refract renders 48 camera angles of your game world. You can think of this slider as skipping camera angles then trying to guess what's missing in between. On fast machines this slider should be all the way to the left. Turning this slider up could significantly improve frame rate, but it could also significantly reduce picture quality.       
 
 And finally there's the Quit button:
