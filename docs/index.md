@@ -14,9 +14,9 @@ This works great for screenshots and video captures, but it doesn't allow you to
 Refract uses the color and depth information from ReGlass to *dynamically generate* a holographic scene with multiple camera angles. The holographic scene is then rendered on the Portrait in real-time.  
 
 ## System Requirements
-As you can imagine, Refract works best on high-end systems. Refract is essentially a second game running at the same time, but I have taken steps to support as many systems as possible. Several settings can be adjusted, and I've included a whole section on improving performance below.
+As you can imagine, Refract works best on high-end systems. Refract is essentially a second game running at the same time as the one you're playing. But I have taken steps to support as many systems as possible and several settings can be adjusted. I've included a whole section on improving performance below.
 
-Here are some estimates:
+Here are some rough estimates:
 
 - **Nvidia 3080** can run modern games like Cyberpunk at close to 60 FPS without sacrificing hologram quality. Though you'll want to turn off Ray Tracing and lower the resolution.
 
