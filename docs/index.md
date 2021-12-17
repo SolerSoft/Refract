@@ -1,8 +1,8 @@
 # Refract
 **Refract** provides real-time holographic streaming for [Looking Glass Portrait](https://lookingglassfactory.com/portrait). When combined with [ReGlass][ReGlass], **Refract** allows you to play more than 500 commercial games as moving holograms.
 
-[![](Images/VideoPreview.png)](https://youtu.be/YKgHC-UgFOY)
-[Watch the video](https://youtu.be/YKgHC-UgFOY)
+[![](Images/VideoPreview.png)](https://youtu.be/Q-iyzyBFLNA)
+[Watch the video](https://youtu.be/Q-iyzyBFLNA)
 
 ## How Does it Work?
 Once installed, [ReGlass][ReGlass] draws your game with color on one side and depth on the other. 
