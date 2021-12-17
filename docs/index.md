@@ -24,7 +24,7 @@ Here are some rough estimates:
 
 ## Usage
 1. Download [ReGlass][ReGlass] and get it fully working with your game. Use the [ReGlass Game Settings][RGGameSettings] page for help with this process.
-1. Download the latest [Refract Archive](https://github.com/SolerSoft/Refract/releases/download/v1.1/Refract_1.0.zip) and unzip it.
+1. Download the latest [Refract Archive](https://github.com/SolerSoft/Refract/releases) and unzip it.
 1. (Optional) create a shortcut to **Refract.exe** on your Start Menu or Task Bar.
 1. Launch your game and enable **ReGlass**.
 1. Launch **Refract.exe** and Enjoy! 
